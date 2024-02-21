@@ -1,5 +1,5 @@
 <?php
-
+header("Content-Type: text/html");
 // Database connection
 $servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com";
 $username = "admin";
