@@ -16,14 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $user_type = $_POST["user_type"];
 
+    // Hash the password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, password, user_type) VALUES ('$username', '$hashed_password', '$user_type')";
-    if ($conn->query($sql) === TRUE) {
+    // Prepare and bind the statement to prevent SQL injection
+    $stmt = $conn->prepare("INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $hashed_password, $user_type);
+
+    if ($stmt->execute()) {
         echo "Registration successful";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 
 $conn->close();
