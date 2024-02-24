@@ -20,8 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare and bind the statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $hashed_password, $user_type);
+    if ($user_type == "Regular User") {
+        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt->bind_param("sss", $username, $hashed_password);
+    }
+    else{
+        $stmt = $conn->prepare("INSERT INTO managerprofile (username, password) VALUES (?, ?)");
+        $stmt->bind_param("sss", $username, $hashed_password);
+    }
 
     if ($stmt->execute()) {
         echo "Registration successful";
@@ -34,3 +40,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
