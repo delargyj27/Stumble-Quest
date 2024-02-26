@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/html");
 // Database connection
-$servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com";
+$servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com:3306";
 $username = "admin";
 $password = "dqPQpd4T2IOzHCjj6dUO";
 $database = "SQuest";
