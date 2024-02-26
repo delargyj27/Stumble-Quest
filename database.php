@@ -6,7 +6,7 @@ $username = "admin";
 $password = "dqPQpd4TIOzHCjj6dUO";
 
 // Create a connection to the database
-$mysqli = new mysqli($host, $username, $password, $dbname);
+$mysqli = new mysqli($host, $username, $password, $dbname, 3306);
 
 // Check if the connection was successful
 if ($mysqli->connect_errno) {
