@@ -1,43 +1,35 @@
 <?php
-header("Content-Type: text/html");
-// Database connection
-$servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com:3306";
-$username = "admin";
-$password = "dqPQpd4T2IOzHCjj6dUO";
-$database = "SQuest";
 
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$username = $_POST["username"] ?? '';
+$email = $_POST["email"] ?? '';
+$password = $_POST["password"] ?? '';
+$user_type = $_POST["user_type"] ?? '';
+
+
+if (empty($username) || empty($email) || empty($password)) {
+    die("Please fill in all required fields.");
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $user_type = $_POST["user_type"];
-
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare and bind the statement to prevent SQL injection
-    if ($user_type == "Regular User") {
-        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        $stmt->bind_param("sss", $username, $hashed_password);
-    }
-    else{
-        $stmt = $conn->prepare("INSERT INTO managerprofile (username, password) VALUES (?, ?)");
-        $stmt->bind_param("sss", $username, $hashed_password);
-    }
-
-    if ($stmt->execute()) {
-        echo "Registration successful";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die("Invalid email format.");
 }
 
-$conn->close();
+
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+
+require_once "database.php";
+
+
+$stmt = $mysqli->prepare("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $username, $email, $password_hash, $user_type);
+
+if (!$stmt->execute()) {
+    die("Error: " . $stmt->error);
+}
+
+echo "Registration successful.";
+
+$stmt->close();
+$mysqli->close();
 ?>
-
