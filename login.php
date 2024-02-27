@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if login was successful
     if ($loginResult === true) {
         // Redirect to the main menu
-        header("Location: index.html");
+        header("Location: http://ec2-52-91-186-216.compute-1.amazonaws.com/index.html");
         exit(); // Ensure that no other code is executed after the header redirect
     } else {
     // Output the result to the user
