@@ -9,9 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Call the login function
     $loginResult = loginUser($conn, $username, $password);
-
+    
+    // Check if login was successful
+    if ($loginResult === true) {
+        // Redirect to the main menu
+        header("Location: index.html");
+        exit(); // Ensure that no other code is executed after the header redirect
+    } else {
     // Output the result to the user
-    echo $loginResult;
+        echo $loginResult;
 }
 
 // Close the database connection
