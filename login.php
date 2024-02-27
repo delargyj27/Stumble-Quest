@@ -1,40 +1,19 @@
 <?php
 session_start();
-// Database connection
-$servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com";
-$username = "admin";
-$password = "dqPQpd4T2IOzHCjj6dUO";
-$database = "SQuest";
-
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
+require_once 'login_function.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
+    // Call the login function
+    $loginResult = loginUser($conn, $username, $password);
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-
-        if (password_verify($password, $row['password'])) {
-            $_SESSION["username"] = $username;
-            echo "Login successful";
-        } else {
-            echo "Invalid username or password";
-        }
-    } else {
-        echo "Invalid username or password";
-    }
+    // Output the result to the user
+    echo $loginResult;
 }
 
+// Close the database connection
 $conn->close();
 ?>
-
