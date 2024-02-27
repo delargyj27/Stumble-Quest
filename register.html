@@ -37,17 +37,24 @@
 
 <div class="register">
     <h1>Register Here</h1>
-    <form action="register.php" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <label for="user_type">User Type</label>
-        <select name="user_type" id="user_type">
-            <option value="regular">Regular User</option>
-            <option value="business">Business User</option>
-        </select>
-        <input type="submit" value="Register"> 
+     <!-- Regular User Registration Form -->
+        <form action="register.php?type=regular" method="post">
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Username" id="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <input type="hidden" name="user_type" value="regular">
+            <input type="submit" value="Register as Regular User"> 
+        </form>
+
+        <!-- Business User Registration Form -->
+        <form action="register.php?type=business" method="post">
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Username" id="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <input type="hidden" name="user_type" value="business">
+            <input type="submit" value="Register as Business User"> 
     </form>
 </div>
     
