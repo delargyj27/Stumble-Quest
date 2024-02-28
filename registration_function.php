@@ -1,4 +1,4 @@
-<?php
+r<?php
 // Method to register a user
 function registerUser($conn, $username, $password, $user_type) {
     // Check if the user already exists
@@ -25,8 +25,7 @@ function registerUser($conn, $username, $password, $user_type) {
     $stmt->bind_param("ss", $username, $hashed_password);
 
     if ($stmt->execute()) {   
-        header("Location: login.php"); // Registration successful, redirect to login.php
-        exit(); // Ensure that no other code is executed after the header redirect
+        return true;
     } else {
     return "Registration failed. Please try again later.";
     }
