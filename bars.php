@@ -5,7 +5,8 @@
 require_once 'db_connection.php';
 
 // Fetch data from the database
-$result = $conn->query("SELECT barname, baraddress, description, menuurl F>
+$result = $conn->query("SELECT barname, baraddress, description, menuurl FROM bars;");
+
 // Check for query execution success
 if ($result) {
     $barsData = $result->fetch_all(MYSQLI_ASSOC);
