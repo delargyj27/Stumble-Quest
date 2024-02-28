@@ -7,6 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
+    // Validation
+    if (empty($username) || empty($password)) {
+        die("Please enter both username and password.");
+    }
+
     $sql = "SELECT * FROM users WHERE username=?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("s", $username);
