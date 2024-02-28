@@ -49,8 +49,14 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Include the PHP code -->
-            <?php include 'bars.php'; ?>
+        <?php foreach ($barsData as $bar): ?>
+            <tr>
+                <td><?php echo $bar['barname']; ?></td>
+                <td><?php echo $bar['baraddress']; ?></td>
+                <td><?php echo $bar['description']; ?></td>
+                <td><?php echo $bar['menuurl']; ?></td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>
