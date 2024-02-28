@@ -24,7 +24,7 @@
        </div>
     </div>
     <ul class="menu">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="home.html">Home</a></li>
         <li><a href="register.html">Register</a></li>
         <li><a href="login.html">Login</a></li>
         <li><a href="map.html">Map</a></li>
@@ -37,9 +37,11 @@
 
 <div class="register">
     <h1>Register Here</h1>
-    <form action="register.php" method="post">
+    <form action="/register.php" method="post" novalidate>
         <label for="username">Username</label>
         <input type="text" name="username" placeholder="Username" id="username" required>
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="Email" id="email" required>
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="Password" id="password" required>
         <label for="user_type">User Type</label>
@@ -62,3 +64,4 @@
     
 </body>
 </html>
+
