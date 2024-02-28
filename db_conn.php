@@ -5,6 +5,8 @@ $username = "admin";
 $password = "dqPQpd4T2IOzHCjj6dUO";
 $database = "SQuest";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
 
 // Check the connection
 if ($conn->connect_error) {
