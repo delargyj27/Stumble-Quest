@@ -3,6 +3,9 @@
 function loginUser($conn, $username, $password) {
     // Retrieve the hashed password for the given username
     $getUserQuery = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    if (!$getUserQuery) {
+    die("Error during login preparation: " . $conn->error);
+    }
     $getUserQuery->bind_param("s", $username);
     $getUserQuery->execute();
     $result = $getUserQuery->get_result();
