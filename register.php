@@ -17,6 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Call the registration function
     $registrationResult = registerUser($conn, $username, $password, $user_type);
 
+    // Check if registration was successful
+    if ($registrationResult === true) {
+        // Redirect to the login page
+        header("Location: login.php");
+        exit(); // Ensure that no other code is executed after the header redirect
+    } else {
     // Output the result to the user
     echo $registrationResult;
 }
