@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stumble Quest</title>
+    <title>Stumble Quest - Bars</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
@@ -21,19 +22,38 @@
     </div>
     <div class="toggle">
        <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
-       </div>
     </div>
     <ul class="menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="register.html">Register</a></li>
         <li><a href="login.html">Login</a></li>
         <li><a href="map.html">Map</a></li>
-        <li><a href="bars.html">Bars</a></li>
+        <li class="active"><a href="bars.html">Bars</a></li> <!-- Highlight the current page -->
         <li><a href="crawl.html">Crawl</a></li>
-        <li><a href="events.html">Calander</a></li>
+        <li><a href="events.html">Calendar</a></li>
         <li><a href="aboutUs.html">FAQ</a></li>
     </ul>
 </nav>
 
+<div class="content">
+    <h1>Bars</h1>
+
+    <!-- Table to display bars information -->
+    <table>
+        <thead>
+            <tr>
+                <th>Bar Name</th>
+                <th>Bar Address</th>
+                <th>Description</th>
+                <th>Menu URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- PHP code to display bars data goes here -->
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
+
