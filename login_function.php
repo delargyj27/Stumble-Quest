@@ -18,9 +18,8 @@ function loginUser($conn, $username, $password) {
             return "Invalid username or password";
         }
     } else {
+        $getUserQuery->close();
         return "Invalid username or password";
-    }
-
-    $getUserQuery->close();
+    } 
 }
 ?>
