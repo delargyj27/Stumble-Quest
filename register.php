@@ -1,35 +1,56 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$username = $_POST["username"] ?? '';
-$email = $_POST["email"] ?? '';
-$password = $_POST["password"] ?? '';
-$user_type = $_POST["user_type"] ?? '';
+// Database connection
+$servername = "sql105.infinityfree.com";
+$username = "if0_36069118";
+$password = "44WqSXc31wzj7";
+$database = "if0_36069118_dbsquest";
 
+$conn = new mysqli($servername, $username, $password, $database);
 
-if (empty($username) || empty($email) || empty($password)) {
-    die("Please fill in all required fields.");
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die("Invalid email format.");
+// Get user input from the form
+$username = mysqli_real_escape_string($conn, $_POST['username']);
+$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT); // Password hashing
+$userType = $_POST['userType'];
+
+// Check if the username is already taken
+$checkQuery = $conn->prepare("SELECT * FROM users WHERE username = ?");
+$checkQuery->bind_param("s", $username);
+$checkQuery->execute();
+$checkResult = $checkQuery->get_result();
+
+if ($checkResult->num_rows > 0) {
+    die("Username is already taken. Please choose another one.");
 }
 
+$checkQuery->close();
 
-$password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-
-require_once "database.php";
-
-
-$stmt = $mysqli->prepare("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $username, $email, $password_hash, $user_type);
-
-if (!$stmt->execute()) {
-    die("Error: " . $stmt->error);
+// Insert user into table based on user type
+if ($userType === 'regular') {
+    $insertQuery = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+} elseif ($userType === 'manager') {
+    $insertQuery = $conn->prepare("INSERT INTO managerprofile (username, password) VALUES (?, ?)");
+} else {
+    die("Invalid user type");
 }
 
-echo "Registration successful.";
+$insertQuery->bind_param("ss", $username, $hashedPassword);
 
-$stmt->close();
-$mysqli->close();
+if ($insertQuery->execute()) {
+    echo "User registered successfully";
+} else {
+    echo "Error: User registration failed";
+    error_log("Error: " . $insertQuery->error);
+}
+
+$insertQuery->close();
+$conn->close();
 ?>
