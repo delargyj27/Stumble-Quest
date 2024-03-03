@@ -54,6 +54,3 @@ if ($insertQuery->execute()) {
 $insertQuery->close();
 $conn->close();
 ?>
-
-</body>
-</html>

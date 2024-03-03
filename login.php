@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 
 // Get user input from the form
 $username = mysqli_real_escape_string($conn, $_POST['username']);
-$password = $_POST['password']; 
+$password = $_POST['password']; // Password as plain text for now, will be hashed for actual use
 
 // Validation
 if (empty($username) || empty($password)) {

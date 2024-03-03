@@ -81,7 +81,7 @@
        </div>
     </div>
     <ul class="menu">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="home.html">Home</a></li>
         <li><a href="register.html">Register</a></li>
         <li><a href="login.html">Login</a></li>
         <li><a href="map.html">Map</a></li>
@@ -92,9 +92,9 @@
     </ul>
 </nav>
 
-<div class="register"> <!-- Use the same class "register" for styling -->
+<div class="register">
     <h1>Login</h1>
-    <form action="login.php" method="post">
+    <form action="/login.php" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" placeholder="Username" id="username" required>
         <label for="password">Password</label>
@@ -102,6 +102,15 @@
         <input type="submit" value="Login"> 
     </form>
 </div>
+
+    <script>
+    const toggleButton = document.querySelector('.toggle a');
+    const menu = document.querySelector('.menu');
+
+    toggleButton.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+</script>
     
 </body>
 </html>
