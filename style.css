@@ -230,3 +230,24 @@ nav a:hover {
         margin: 10px auto;
     }
 }
+
+/* Add styles for the card container */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Add styles for the bar name */
+.bar-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Add styles for other bar details */
+.bar-details {
+    font-size: 16px;
+    color: #666;
+}

@@ -1,58 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stumble Quest</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
-<div class="top-bar">
-    <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
-   
-    <ul>
-        <li><a href=""><ion-icon name="logo-instagram"></ion-icon></a></li>
-    </ul>
-</div>
-
-<nav>
-    <div class="logo">
-        <a href="#"><img src="images/pint.png" alt="logo">Stumble Quest</a>
+    <div class="top-bar">
+        <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
+        <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+        </ul>
     </div>
-    <div class="toggle">
-       <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
-       </div>
-    </div>
-    <ul class="menu">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="map.html">Map</a></li>
-        <li><a href="bars.html">Bars</a></li>
-        <li><a href="crawl.html">Crawl</a></li>
-        <li><a href="events.html">Calander</a></li>
-        <li><a href="aboutUs.html">FAQ</a></li>
-    </ul>
-</nav>
 
+    <nav>
+        <div class="logo">
+            <a href="#"><img src="images/pint.png" alt="logo">Stumble Quest</a>
+        </div>
+        <div class="toggle">
+            <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="map.html">Map</a></li>
+            <li><a href="bar.html">Bars</a></li>
+            <li><a href="crawl.html">Crawl</a></li>
+            <li><a href="events.html">Calander</a></li>
+            <li><a href="aboutUs.html">FAQ</a></li>
+        </ul>
+    </nav>
+    
 <div class="register">
-    <h1>Register Here</h1>
-    <form action="/register.php" method="post" novalidate>
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Username" id="username" required>
-        <label for="email">Email</label>
-        <input type="text" name="email" placeholder="Email" id="email" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <label for="user_type">User Type</label>
-        <select name="user_type" id="user_type">
+    <h1>Register for Stumble Quest</h1>
+    <form action="register.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="userType">User Type:</label>
+        <select id="userType" name="userType" required>
             <option value="regular">Regular User</option>
-            <option value="business">Business User</option>
+            <option value="manager">Bar Manager</option>
         </select>
-        <input type="submit" value="Register"> 
+
+        <button type="submit">Register</button>
     </form>
 </div>
-    
+
+<script>
+    const toggleButton = document.querySelector('.toggle a');
+    const menu = document.querySelector('.menu');
+
+    toggleButton.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
-

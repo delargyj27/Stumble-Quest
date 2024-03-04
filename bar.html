@@ -33,14 +33,30 @@
         </ul>
     </nav>
 
+    <div class="container">
+        <h1>Bars</h1>
+            <div id="barsTableContainer" class="bars-container"></div>
+    </div>
+
+
     <script>
-    const toggleButton = document.querySelector('.toggle a');
-    const menu = document.querySelector('.menu');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch and display bars data
+            fetch('bars.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('barsTableContainer').innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching bars data:', error));
+        });
 
-    toggleButton.addEventListener('click', () => {
-        menu.classList.toggle('active');
-    });
-</script>
+        const toggleButton = document.querySelector('.toggle a');
+        const menu = document.querySelector('.menu');
 
+        toggleButton.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
+
