@@ -36,6 +36,9 @@
 
 <div id="map" style="width:100%; height:400px;"></div>
 
+<!-- Embed JavaFX Application -->
+<applet width="800" height="600" archive="your_javafx_app.jar" code="org.example.squest.HelloApplication.class"></applet>
+
 <script>
   const toggleButton = document.querySelector('.toggle a');
   const menu = document.querySelector('.menu');
@@ -43,85 +46,6 @@
   toggleButton.addEventListener('click', () => {
     menu.classList.toggle('active');
   });
-
-  // Function to initialize the map
-  function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -40.73295627356877, lng: -73.44589940099779 },
-      zoom: 8,
-    });
-
-// Add markers and popups for your locations here
-var locations = [
-  { name: 'Alibi Lounge', lat: 40.73369, lng: -73.44609 },
-  { name: 'Burgerology Farmingdale', lat: 40.73333, lng: -73.44587 },
-  { name: 'CaraCara Mexican Grill', lat: 40.73117, lng: -73.44568 },
-  { name: 'Charlotte’s Speakeasy', lat: 40.73243, lng: -73.44590 },
-  { name: 'Croxley’s Ale House', lat: 40.73452, lng: -73.44622 },
-  { name: 'Dark Horse Tavern', lat: 40.73278, lng: -73.44579 },
-  { name: '318 Main Street', lat: 40.73305, lng: -73.44556 },
-  { name: 'Alibi Lounge', lat: 40.73219, lng: -73.44569 },
-  { name: 'Burgerology Farmingdale', lat: 40.73254, lng: -73.44573 },
-  { name: 'CaraCara Mexican Grill', lat: 40.73314, lng: -73.44586 },
-  { name: 'Charlotte’s Speakeasy', lat: 40.73278, lng: -73.44596 },
-  { name: 'Croxley’s Ale House', lat: 40.73409, lng: -73.44598 },
-  { name: 'Dark Horse Tavern', lat: 40.73277, lng: -73.44636 },
-  { name: '319 Main Street', lat: 40.73324, lng: -73.44586 },
-  { name: 'Alibi Lounge', lat: 40.73414, lng: -73.44614 },
-  { name: 'Burgerology Farmingdale', lat: 40.73130, lng: -73.44570 },
-  { name: 'CaraCara Mexican Grill', lat: 40.73181, lng: -73.44555 },
-  { name: 'Charlotte’s Speakeasy', lat: 40.73453, lng: -73.44604 },
-  { name: 'Croxley’s Ale House', lat: 40.73218, lng: -73.44585 },
-  { name: 'Dark Horse Tavern', lat: 40.73458, lng: -73.44605 },
-  { name: '320 Main Street', lat: 40.73431, lng: -73.44616 },
-  { name: 'Alibi Lounge', lat: 40.73262, lng: -73.44593 },
-  { name: 'Burgerology Farmingdale', lat: 40.73207, lng: -73.44566 },
-  { name: 'CaraCara Mexican Grill', lat: 40.73460, lng: -73.44604 },
-  { name: 'Charlotte’s Speakeasy', lat: 40.73326, lng: -73.44602 },
-  { name: 'Croxley’s Ale House', lat: 40.73390, lng: -73.44596 },
-  { name: 'Dark Horse Tavern', lat: 40.73440, lng: -73.44603 }
-];
-
-var map = new google.maps.Map(document.getElementById('map'), {
-  center: { lat: -40.73295627356877, lng: -73.44589940099779},
-  zoom: 14
-});
-
-var infoWindows = [];
-
-locations.forEach(function(location) {
-  var marker = new google.maps.Marker({
-    position: { lat: location.lat, lng: location.lng },
-    map: map,
-    title: location.name
-  });
-
-  var infoWindow = new google.maps.InfoWindow({
-    content: '<h3>' + location.name + ' Information</h3><p>Content for ' + location.name + ' popup</p>'
-  });
-
-  marker.addListener('click', function() {
-    closeAllInfoWindows();
-    infoWindow.open(map, marker);
-  });
-
-  infoWindows.push(infoWindow);
-});
-
-function closeAllInfoWindows() {
-  infoWindows.forEach(function(infoWindow) {
-    infoWindow.close();
-  });
-}
-
-
-      
-  }
-
-  // Load the Google Maps JavaScript library with your API key
-  const script = document.createElement('script');
-  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBgwI_rs1wSAAACy5hLUGzp0CdCFn6_uB8&callback=initMap`;
-  document.head.appendChild(script);
 </script>
 
 </body>
