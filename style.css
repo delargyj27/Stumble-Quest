@@ -230,3 +230,245 @@ nav a:hover {
         margin: 10px auto;
     }
 }
+
+/* Style for bar profile boxes */
+.bar-profile {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+.bar-profile:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.bar-image img {
+    width: 100%;
+    height: auto;
+}
+
+.bar-info {
+    padding: 10px;
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .filter {
+        padding: 15px;
+    }
+}
+
+/******************************* Crawl map and Lists *****************************************/
+.filter-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Height for scrolling */
+#scroll-container {
+    text-align: center;
+    overflow: auto;
+    height: 100vh;
+}
+
+#map-container {
+    position: relative;
+}
+
+#map-image {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+/************************ Lists ***********************/
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#left-container,
+#right-container {
+    width: 45%;
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+}
+#left-container ul,
+#right-container ul {
+    list-style: none;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+#left-container ul {
+    margin-right: 10px;
+}
+
+#right-container ul {
+    margin-left: 10px;
+}
+
+.draggable {
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    cursor: grab;
+}
+
+/******************************************************************************************/
+
+/* Bar Profile */
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.container h2 {
+    margin-bottom: 20px;
+}
+
+.bar-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bar-info label {
+    margin-bottom: 10px;
+}
+
+.bar-info input[type="text"],
+.bar-info textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.bar-info textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Style for radio button container */
+.radio-container {
+    display: flex;
+    align-items: center;
+}
+
+.radio-container label {
+    margin-right: 20px;
+}
+.radio-container input[type="radio"] {
+    margin-right: 5px;
+}
+.update-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    align-self: stretch;
+}
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+/* Pictures */
+.pictures-box {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.pictures-box h2 {
+    margin-bottom: 15px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 8 images, 2 per row */
+    grid-gap: 10px;
+}
+
+.image-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+}
+
+/* Style for pictures button */
+.pictures-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.pictures-button:hover {
+    background-color: #0056b3;
+}
+.ratings-box {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.ratings-box h2 {
+    margin-bottom: 15px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rating-item label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.rating-value {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
