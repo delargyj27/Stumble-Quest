@@ -1,56 +1,46 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+header("Content-Type: text/html");
 // Database connection
-$servername = "sql105.infinityfree.com";
-$username = "if0_36069118";
-$password = "44WqSXc31wzj7";
-$database = "if0_36069118_dbsquest";
+$servername = "stumblequest.clu0m60664ab.us-east-1.rds.amazonaws.com";
+$username = "admin";
+$password = "dqPQpd4T2IOzHCjj6dUO";
+$database = "SQuest";
 
 $conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get user input from the form
-$username = mysqli_real_escape_string($conn, $_POST['username']);
-$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT); // Password hashing
-$userType = $_POST['userType'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $user_type = $_POST["user_type"];
 
-// Check if the username is already taken
-$checkQuery = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$checkQuery->bind_param("s", $username);
-$checkQuery->execute();
-$checkResult = $checkQuery->get_result();
+    // Check for empty fields
+    if (empty($username) || empty($password) || empty($user_type)) {
+        echo "User Name and Password are required.";
+    } else {
 
-if ($checkResult->num_rows > 0) {
-    die("Username is already taken. Please choose another one.");
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Prepare and bind the statement to prevent SQL injection
+    if ($user_type == "Regular User") {
+        $stmt = $conn->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+        $stmt->bind_param("sss", $username, $hashed_password);
+    } else {
+        $stmt = $conn->prepare("INSERT INTO managerprofile (username, password) VALUES (?, ?)");
+        $stmt->bind_param("sss", $username, $hashed_password);
+    }
+
+    if ($stmt->execute()) {
+        echo "Registration successful";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
 }
 
-$checkQuery->close();
-
-// Insert user into table based on user type
-if ($userType === 'regular') {
-    $insertQuery = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-} elseif ($userType === 'manager') {
-    $insertQuery = $conn->prepare("INSERT INTO managerprofile (username, password) VALUES (?, ?)");
-} else {
-    die("Invalid user type");
-}
-
-$insertQuery->bind_param("ss", $username, $hashedPassword);
-
-if ($insertQuery->execute()) {
-    echo "User registered successfully";
-} else {
-    echo "Error: User registration failed";
-    error_log("Error: " . $insertQuery->error);
-}
-
-$insertQuery->close();
 $conn->close();
 ?>
