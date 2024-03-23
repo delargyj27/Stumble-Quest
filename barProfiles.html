@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Stumble Quest</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="barProfiles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -37,116 +37,116 @@
 
 <!-- Main content container -->
 <div class="main-content">
-
     <!-- Bar name -->
-    <h1>Bar Name</h1>
+    <h1 class="bar-name">Bar Name</h1>
 
-    <!-- Four containers lined up horizontally -->
-    <div class="horizontal-containers">
 
-        <div class="container">
-            <!-- Bar Information -->
-            <div class="bar-info">
-                <div class="info-item">
-                    <label for="manager_id">Manager ID:</label>
-                    <input type="text" id="manager_id" name="manager_id">
-                </div>
-                <div class="info-item">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="5"></textarea>
-                </div>
-                <div class="info-item">
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location">
-                </div>
-                <div class="info-item">
-                    <label for="menu_url">Menu URL:</label>
-                    <input type="text" id="menu_url" name="menu_url">
-                </div>
-                <div class="info-item">
-                    <label>Outdoor Seating:</label>
-                    <div class="radio-buttons">
-                        <input type="radio" id="outdoor_seating_yes" name="outdoor_seating" value="yes">
-                        <label for="outdoor_seating_yes">Yes</label>
-                        <input type="radio" id="outdoor_seating_no" name="outdoor_seating" value="no">
-                        <label for="outdoor_seating_no">No</label>
-                    </div>
-                </div>
+    <div class="container">
 
-                <div class="info-item">
-                    <label>Wheelchair Accessible:</label>
-                    <div class="radio-buttons">
-                        <input type="radio" id="wheelchair_accessible_yes" name="wheelchair_accessible" value="yes">
-                        <label for="wheelchair_accessible_yes">Yes</label>
-                        <input type="radio" id="wheelchair_accessible_no" name="wheelchair_accessible" value="no">
-                        <label for="wheelchair_accessible_no">No</label>
-                    </div>
-                </div>
+        <!-- Four containers lined up horizontally -->
 
-                <div class="info-item">
-                    <label>Live Music:</label>
-                    <div class="radio-buttons">
-                        <input type="radio" id="live_music_yes" name="live_music" value="yes">
-                        <label for="live_music_yes">Yes</label>
-                        <input type="radio" id="live_music_no" name="live_music" value="no">
-                        <label for="live_music_no">No</label>
-                    </div>
-                </div>
-                <button type="submit" class="update-button">Update</button>
+        <!-- Bar Information -->
+        <div class="bar-info">
+            <h2>Information</h2>
+            <div class="info-item">
+                <label for="bar_name">Bar Name:</label>
+                <input type="text" id="bar_name" name="bar_name">
             </div>
-
-            <!-- Pictures -->
-            <div class="pictures-box">
-                <button class="pictures-button">Pictures</button>
-                <div class="image-grid">
+            <div class="info-item">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="5"></textarea>
+            </div>
+            <div class="info-item">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location">
+            </div>
+            <div class="info-item">
+                <label for="menu_url">Menu URL:</label>
+                <input type="text" id="menu_url" name="menu_url">
+            </div>
+            <div class="info-item">
+                <label>Outdoor Seating:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="outdoor_seating_yes" name="outdoor_seating" value="yes">
+                    <label for="outdoor_seating_yes">Yes</label>
+                    <input type="radio" id="outdoor_seating_no" name="outdoor_seating" value="no">
+                    <label for="outdoor_seating_no">No</label>
                 </div>
             </div>
-
-            <div class="ratings-box">
-                <h2>Ratings</h2>
-                <div class="rating-item">
-                    <label for="food">Food:</label>
-                    <div class="rating-value">4</div>
-                </div>
-                <div class="rating-item">
-                    <label for="service">Service:</label>
-                    <div class="rating-value">3</div>
-                </div>
-                <div class="rating-item">
-                    <label for="vibe">Vibe:</label>
-                    <div class="rating-value">4</div>
-                </div>
-                <div class="rating-item">
-                    <label for="drinks">Drinks:</label>
-                    <div class="rating-value">4</div>
-                </div>
-                <div class="rating-item">
-                    <label for="cleanliness">Cleanliness:</label>
-                    <div class="rating-value">3</div>
-                </div>
-                <div class="rating-item">
-                    <label for="safety">Safety:</label>
-                    <div class="rating-value">4</div>
+            <div class="info-item">
+                <label>Wheelchair Accessible:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="wheelchair_accessible_yes" name="wheelchair_accessible" value="yes">
+                    <label for="wheelchair_accessible_yes">Yes</label>
+                    <input type="radio" id="wheelchair_accessible_no" name="wheelchair_accessible" value="no">
+                    <label for="wheelchair_accessible_no">No</label>
                 </div>
             </div>
-
-            <div class="events-container">
-                <div class="events-header">
-                    <h2>Events</h2>
-                    <button class="edit-events-button">Edit Events</button>
-                </div>
-                <div class="events-content">
-                    <div class="event-names">
-                        <!-- Event names go here -->
-                    </div>
-                    <div class="event-dates">
-                        <!-- Event dates go here -->
-                    </div>
+            <div class="info-item">
+                <label>Live Music:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="live_music_yes" name="live_music" value="yes">
+                    <label for="live_music_yes">Yes</label>
+                    <input type="radio" id="live_music_no" name="live_music" value="no">
+                    <label for="live_music_no">No</label>
                 </div>
             </div>
+            <button type="submit" class="update-button">Update</button>
+        </div>
 
+        <!-- Ratings -->
+        <div class="ratings-box">
+            <h2>Ratings</h2>
+            <div class="rating-item">
+                <label for="food">Food:</label>
+                <div class="rating-value">4</div>
+            </div>
+            <div class="rating-item">
+                <label for="service">Service:</label>
+                <div class="rating-value">3</div>
+            </div>
+            <div class="rating-item">
+                <label for="vibe">Vibe:</label>
+                <div class="rating-value">4</div>
+            </div>
+            <div class="rating-item">
+                <label for="drinks">Drinks:</label>
+                <div class="rating-value">4</div>
+            </div>
+            <div class="rating-item">
+                <label for="cleanliness">Cleanliness:</label>
+                <div class="rating-value">3</div>
+            </div>
+            <div class="rating-item">
+                <label for="safety">Safety:</label>
+                <div class="rating-value">4</div>
+            </div>
+        </div>
+
+        <!-- Events -->
+        <div class="events-container">
+            <div class="events-header">
+                <h2>Events</h2>
+                <button class="edit-button">Edit Events</button>
+            </div>
+            <div class="event-item">
+                <div class="event-name">Name 1</div>
+                <div class="event-date">Date 1</div>
+            </div>
+            <div class="event-item">
+                <div class="event-name">Name 2</div>
+                <div class="event-date">Date 1</div>
+            </div>
         </div>
     </div>
+    <!-- Pictures -->
+    <div class="pictures-box">
+        <button class="pictures-button">
+            <span>Picture</span>
+            <span>Album</span>
+        </button>
+    </div>
+
 </div>
 </body>
 </html>
