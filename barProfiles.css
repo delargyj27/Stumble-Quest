@@ -130,7 +130,7 @@ nav a:hover {
 }
 /****************************************************************************/
 
-h1.bar-name {
+h1.bar_name {
     background-color: #000000; /* Change the color code to your desired background color */
     padding: 17px;
     color: white;
@@ -218,7 +218,7 @@ h1 {
 /* Pictures */
 .pictures-box {
     background-color: #fff;
-    padding: 60px 20px;
+    padding: 60px 20px 20px;
     margin-top: 20px;
     border: 3px solid #000;
 }
@@ -229,9 +229,10 @@ h1 {
 
 .thumbnails {
     display: flex;
-    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-x: auto; /* horizontal scrolling */
     scroll-snap-type: x mandatory; /* Snap to each thumbnail */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin-top: 20px;
 }
 
 .thumbnail {
@@ -241,21 +242,21 @@ h1 {
 }
 
 .thumbnail img {
-    width: 100px; /* Adjust the width of each thumbnail */
+    width: 300px !important;
     height: auto;
-    border: 1px solid #ccc; /* Add border for better visibility */
+    border: 1px solid #ccc;
 }
 
 .pictures-button {
     padding: 10px 20px;
+    margin-top: -30px; 
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 5px;
-    display: inline-flex; /* Use inline-flex to stack the words vertically */
+    display: flex;
     flex-direction: column; /* Stack the words vertically */
     align-items: center; /* Center the content horizontally */
 }
@@ -308,14 +309,14 @@ h1 {
     margin: 0;
 }
 .edit-button {
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: 5px;
     align-self: stretch;
 }
 .edit-button:hover {
