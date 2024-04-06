@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stumble Quest</title>
+    <title>Stumble Quest - Bars</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
 <div class="top-bar">
     <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
-   
     <ul>
         <li><a href=""><ion-icon name="logo-instagram"></ion-icon></a></li>
     </ul>
@@ -20,8 +20,7 @@
         <a href="#"><img src="images/pint.png" alt="logo">Stumble Quest</a>
     </div>
     <div class="toggle">
-       <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
-       </div>
+        <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
     </div>
     <ul class="menu">
         <li><a href="index.html">Home</a></li>
@@ -30,19 +29,97 @@
         <li><a href="map.html">Map</a></li>
         <li><a href="bars.html">Bars</a></li>
         <li><a href="crawl.html">Crawl</a></li>
-        <li><a href="events.html">Calender</a></li>
+        <li><a href="events.html">Calendar</a></li>
         <li><a href="aboutUs.html">FAQ</a></li>
     </ul>
 </nav>
 
-    <script>
+
+
+
+<div id="scroll-container">
+    <!-- map image -->
+    <img src="images/1000x200.png" alt="Map" id="map-image"/>
+
+    <!-- Floating containers -->
+    <div id="left-container" class="draggable-container">
+        <ul>
+            <li draggable="true" class="draggable">Bar 1</li>
+            <li draggable="true" class="draggable">Bar 2</li>
+            <!-- Left container content (bar list) -->
+        </ul>
+    </div>
+
+    <div id="right-container" class="draggable-container">
+        <ul>
+            <li draggable="true" class="draggable">Bar 1</li>
+            <li draggable="true" class="draggable">Bar 2</li>
+            <!-- Right container content (drag and drop area) -->
+        </ul>
+    </div>
+</div>
+
+<script>
     const toggleButton = document.querySelector('.toggle a');
     const menu = document.querySelector('.menu');
 
     toggleButton.addEventListener('click', () => {
         menu.classList.toggle('active');
     });
-</script>
 
+    // Your drag-and-drop JavaScript code goes here
+    const draggableContainers = document.querySelectorAll('.draggable-container');
+
+    draggableContainers.forEach(container => {
+        container.addEventListener('dragover', e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(container, e.clientY);
+            const dragging = document.querySelector('.dragging');
+            const list = afterElement.parentElement;
+
+            if (afterElement == null) {
+                list.appendChild(dragging);
+            } else {
+                list.insertBefore(dragging, afterElement);
+            }
+        });
+
+        container.addEventListener('dragleave', () => {
+            // Handle drag leave events if needed
+        });
+    });
+
+    document.addEventListener('dragstart', e => {
+        const dragging = e.target;
+        dragging.classList.add('dragging');
+    });
+
+    document.addEventListener('dragend', e => {
+        const dragging = document.querySelector('.dragging');
+        if (dragging) {
+            dragging.classList.remove('dragging');
+        }
+    });
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.draggable')];
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    // Disable dragging for the map image
+    const mapImage = document.getElementById('map-image');
+
+    mapImage.addEventListener('dragstart', e => {
+        e.preventDefault();
+    });    
+</script>
 </body>
 </html>

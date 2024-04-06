@@ -230,3 +230,109 @@ nav a:hover {
         margin: 10px auto;
     }
 }
+
+/* Style for bar profile boxes */
+.bar-profile {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+.bar-profile:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.bar-image img {
+    width: 100%;
+    height: auto;
+}
+
+.bar-info {
+    padding: 10px;
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .filter {
+        padding: 15px;
+    }
+}
+
+/******************************* Crawl map and Lists *****************************************/
+.filter-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Height for scrolling */
+#scroll-container {
+    text-align: center;
+    overflow: auto;
+    height: 100vh;
+}
+
+#map-container {
+    position: relative;
+}
+
+#map-image {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+/************************ Lists ***********************/
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#left-container,
+#right-container {
+    width: 45%;
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+}
+#left-container ul,
+#right-container ul {
+    list-style: none;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+#left-container ul {
+    margin-right: 10px;
+}
+
+#right-container ul {
+    margin-left: 10px;
+}
+
+.draggable {
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    cursor: grab;
+}
+
+/******************************************************************************************/
+
