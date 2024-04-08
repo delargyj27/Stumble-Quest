@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stumble Quest - Bars</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        /*
+        .mapboxgl-marker {
+            background-image: url('./dist/pint.png');            
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        */        
+        .marker {
+            display: block;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }        
+    </style>
 </head>
 <body>
 <div class="top-bar">
@@ -34,92 +62,340 @@
     </ul>
 </nav>
 
+<div class="flex font-sans">
+    <!-- SIDEBAR -->
+    <div class="w-1/5 bg-gray-900 h-screen">
+        <!-- LOGO -->
+        <div class="flex justify-center pt-8 pb-8 border-b border-b-white">  
+            <img src="./dist/pint.png" class="h-14" />
+        </div>
+        <!--
+        <h3 class="text-white font-bold  text-center text-3xl mt-8 flex items-center w-full justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Add an Event
+        </h3>
 
+        <div class="mb-6 w-5/6 mx-auto mt-12">
+            <label for="eventName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Event Name</label>
+            <input type="text" id="eventName" class="input-field" placeholder="DC Event" required>
+        </div>
 
-
-<div id="scroll-container">
-    <!-- map image -->
-    <img src="images/1000x200.png" alt="Map" id="map-image"/>
-
-    <!-- Floating containers -->
-    <div id="left-container" class="draggable-container">
-        <ul>
-            <li draggable="true" class="draggable">Bar 1</li>
-            <li draggable="true" class="draggable">Bar 2</li>
-            <!-- Left container content (bar list) -->
-        </ul>
+        <div class="mb-6 w-5/6 mx-auto mt-6">
+            <label for="eventDescription" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Event
+                Description</label>
+            <input type="text" id="eventDescription" class="input-field" placeholder="There will be very cool refreshments"
+                required>
+        </div>
+        
+        <div class="mb-6 w-5/6 mx-auto mt-6">
+            <label for="geocoder" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Event Address</label>
+            <div id="geocoder"></div>
+        </div>
+       
+        <div class="w-5/6 mx-auto flex justify-end">
+            <button type="button" class="submit-button" onclick="addEvent()">Add Event</button>
+        </div>-->
+        <div
+            class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
+            <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">Bars & Restaurants -<br>Main St.,
+                Farmingdale, NY</h2>
+                          
+            <!--<button id="reset-view">Reset</button>-->
+            <div id="bar-buttons" class="mt-8 space-y-4">
+                <!-- 
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                    <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">317 Main St.</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">317 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                    <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">Alibi Lounge</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">230 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 bg-gray-100 dark:bg-gray-800 gap-x-2 focus:outline-none">
+                    <div class="relative">
+                        <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                        
+                    </div>
+    
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">Burgerology Farmingdale</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">230 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                    <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">CaraCara Mexican Grill</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">354 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                    <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">Charlotte’s Speakeasy</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">294 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 gap-x-2 focus:outline-none">
+                    <div class="relative">
+                        <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                    </div>
+    
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">Croxley’s Ale House</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">190 Main St., Farmingdale, NY</p>
+                    </div>
+                </button>
+    
+                <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 gap-x-2 focus:outline-none">
+                    <div class="relative">
+                        <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+                    </div>
+    
+                    <div class="text-left rtl:text-right">
+                        <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">Dark Horse Tavern</h1>
+        
+                        <p class="text-xs text-gray-500 dark:text-gray-400">273 Main St., Farmingdale, NY</p>
+                    </div>
+                </button> -->
+            </div>
+        </div>
+    </div>
+    <div class="h-screen w-full" id="map">
+        
+        <button id="reset-view" class="absolute">Add to Crawl</button>
+        <script>
+            //Reset the map view w/ added bar
+            document.querySelector('#reset-view').addEventListener('click', () => {
+                //console.log('click')
+                map.flyTo({
+                    center: INITIAL_CENTER,
+                    zoom: INITIAL_ZOOM,
+                    pitch: 0
+                });
+            });
+        </script>
     </div>
 
-    <div id="right-container" class="draggable-container">
-        <ul>
-            <li draggable="true" class="draggable">Bar 1</li>
-            <li draggable="true" class="draggable">Bar 2</li>
-            <!-- Right container content (drag and drop area) -->
-        </ul>
-    </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+<script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
 <script>
-    const toggleButton = document.querySelector('.toggle a');
-    const menu = document.querySelector('.menu');
+    const INITIAL_CENTER = [-73.445921, 40.732837];
+    const INITIAL_ZOOM = 16.25
+    mapboxgl.accessToken = 'pk.eyJ1IjoiamttYXBkZXYiLCJhIjoiY2xzZTJqNGhvMTdmajJqcGR0M2VuamhteiJ9.nvLYDDQBhv_sFGNIwW2oTg';
 
-    toggleButton.addEventListener('click', () => {
-        menu.classList.toggle('active');
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: INITIAL_CENTER,
+        zoom: INITIAL_ZOOM,
+
     });
 
-    // Your drag-and-drop JavaScript code goes here
-    const draggableContainers = document.querySelectorAll('.draggable-container');
-
-    draggableContainers.forEach(container => {
-        container.addEventListener('dragover', e => {
-            e.preventDefault();
-            const afterElement = getDragAfterElement(container, e.clientY);
-            const dragging = document.querySelector('.dragging');
-            const list = afterElement.parentElement;
-
-            if (afterElement == null) {
-                list.appendChild(dragging);
-            } else {
-                list.insertBefore(dragging, afterElement);
+    map.on('load', function() {
+        //place object we will add our events to
+        map.addSource('places', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [] // data of events
+            }
+        });
+        //add place object to map
+        map.addLayer({
+            'id': 'places',
+            'type': 'symbol',
+            'source': 'places',
+            'layout': {
+                'icon-image': '{icon}',
+                'icon-allow-overlap': true
             }
         });
 
-        container.addEventListener('dragleave', () => {
-            // Handle drag leave events if needed
-        });
-    });
-
-    document.addEventListener('dragstart', e => {
-        const dragging = e.target;
-        dragging.classList.add('dragging');
-    });
-
-    document.addEventListener('dragend', e => {
-        const dragging = document.querySelector('.dragging');
-        if (dragging) {
-            dragging.classList.remove('dragging');
-        }
-    });
-
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.draggable')];
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset, element: child };
-            } else {
-                return closest;
+        //Handle popups
+        map.on('click', 'places', (e) => {
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const description = e.features[0].properties.description;
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
+            new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(description)
+                .addTo(map);
+        });
+
+        //Handle pointer styles
+        map.on('mouseenter', 'places', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+        map.on('mouseleave', 'places', () => {
+            map.getCanvas().style.cursor = '';
+        });
+
+        //get our data from php function
+        getAllEvents();
+    });
+
+    //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
+    //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the 
+    //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in 
+    //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^.   
+    function getAllEvents() {
+        $.ajax({
+            url: "./api/getAllEvents.php",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (eventData) {
+                console.log(eventData)
+                map.getSource('places').setData({
+                    'type': 'FeatureCollection',
+                    'features': eventData
+                });
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
 
-    // Disable dragging for the map image
-    const mapImage = document.getElementById('map-image');
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+    });
 
-    mapImage.addEventListener('dragstart', e => {
-        e.preventDefault();
-    });    
+    geocoder.addTo('#geocoder');
+
+    var geocoderResult = {};
+
+    geocoder.on('result', (e) => {
+        geocoderResult = e.result, null, 2;
+    });
+
+    // Clear results container when search is cleared.
+    geocoder.on('clear', () => {
+        geocoderResult = {};
+    });
+
+    function addEvent() {
+        if (geocoderResult == {}) {
+            return false;
+        }
+        var postObj = {
+            name: $("#eventName").val(),
+            description: $("#eventDescription").val(),
+            lat: geocoderResult.center[0],
+            lng: geocoderResult.center[1],
+        }
+
+        //Add validation - ex. certain length for text fields, a star rating, etc.
+
+        $.ajax({
+            url: "./api/createEvent.php",
+            type: 'POST',
+            data: postObj,
+            dataType: "json",
+            success: function (resp) {
+                if (resp == 'success') {
+                    //reset form & get new data
+                    $("#eventName").val('');
+                    $("#eventDescription").val('');
+                    geocoder.clear();
+                    getAllEvents();
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    }
+
 </script>
+<!-- <script src="./api/bars.js" type="module"></script> -->
+<script type="module">
+    import { getAllBars } from "./api/bars.js";
+    import { html } from "./utils/html.js";
+
+    const div = document.querySelector("#bar-buttons");
+
+    // TODO: Add buttons into the div...
+
+    const bars = await getAllBars();
+    console.log("bars: ", bars);
+
+    for(const bar of bars){
+        const button = html(`
+            <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
+                <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
+            
+                <div class="text-left rtl:text-right">
+                    <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
+    
+                    <p class="text-xs text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
+                </div>
+            </button>
+        `);
+
+        button.onclick = () => {
+            map.flyTo({center: [bar.location_longitude, bar.location_latitude], zoom: 20});
+
+            // const marker1 = new mapboxgl.Marker({
+            //     scale: 0.6
+            // })
+            const el = document.createElement('div');
+            // const width = marker.properties.iconSize[0];
+            // const height = marker.properties.iconSize[1];
+            el.className = 'marker';
+            el.style.backgroundImage = `url('./dist/pint.png')`;
+            el.style.width = `50px`;
+            el.style.height = `50px`;
+            el.style.backgroundSize = '100%';
+            
+            new mapboxgl.Marker(el)
+                .setLngLat([bar.location_longitude, bar.location_latitude])
+                //.setPopup(popup) // sets a popup on this marker
+                .addTo(map);                
+        }         
+
+        div.append(button);
+    }
+</script>
+
+
+
+
+
+
 </body>
 </html>
