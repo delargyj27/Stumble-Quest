@@ -25,14 +25,19 @@
             border-radius: 50%;
             cursor: pointer;
         }
-        */        
+        */  
+        .h-screen {
+            height: 100vh;
+            overflow: auto;
+        }      
         .marker {
             display: block;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             padding: 0;
-        }        
+        } 
+              
     </style>
 </head>
 <body>
@@ -98,8 +103,7 @@
         <div class="w-5/6 mx-auto flex justify-end">
             <button type="button" class="submit-button" onclick="addEvent()">Add Event</button>
         </div>-->
-        <div
-            class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
+        <div class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
             <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">Bars & Restaurants -<br>Main St.,
                 Farmingdale, NY</h2>
                           
@@ -224,6 +228,7 @@
     });
 
     map.on('load', function() {
+        map.resize();
         //place object we will add our events to
         map.addSource('places', {
             'type': 'geojson',
