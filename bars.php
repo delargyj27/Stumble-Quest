@@ -99,8 +99,24 @@ if ($result->num_rows > 0) {
 
         // Add rating form
         $html .= "<form class='rating-form' action='submit_review.php' method='post'>"; // Updated action attribute
-        $html .= "<label for='rating_$barId'>Rate this bar:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='rating' min='0' max='5' step='0.1'>";
+        $html .= "<label for='rating_$barId'>Rate their Food:</label>";
+        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='food' min='0' max='5' step='0.1'>";
+        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
+        $html .= "<label for='rating_$barId'>          </label>";
+        $html .= "<label for='rating_$barId'>Rate their Service:</label>";
+        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='service' min='0' max='5' step='0.1'>";
+        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
+        $html .= "<label for='rating_$barId'>          </label>";
+        $html .= "<label for='rating_$barId'>Rate their Drinks:</label>";
+        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='drinks' min='0' max='5' step='0.1'>";
+        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
+        $html .= "<label for='rating_$barId'>          </label>";
+        $html .= "<label for='rating_$barId'>Rate their Vibes:</label>";
+        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='vibe' min='0' max='5' step='0.1'>";
+        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
+        $html .= "<label for='rating_$barId'>          </label>";
+        $html .= "<label for='rating_$barId'>Rate their Cleanliness:</label>";
+        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='cleanliness' min='0' max='5' step='0.1'>";
         $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
         
         // Add textarea for review text
@@ -112,9 +128,6 @@ if ($result->num_rows > 0) {
 
         // Add rating stars
         $html .= "<div class='rating'>$starsHtml</div>";
-
-        // Add "View More Info" link
-        $html .= "<p><a href='bar_details.php?bar_id={$row['barid']}'>View More Info</a></p>"; // Updated link
         
         $html .= "</div>
         </div>";
@@ -129,3 +142,4 @@ $conn->close();
 // Return the generated HTML
 echo $html;
 ?>
+

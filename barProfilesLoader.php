@@ -270,7 +270,7 @@ $conn->close();
     </div>
     <!-- Pictures -->
     <div class="pictures-box">
-    <a href="gallery.php?barid=<?php echo $barid; ?>" class="pictures-button">Bar Pictures</a>
+        <button class="pictures-button">Bar Pictures</button>
         <div class="thumbnails">
             <!-- Loop through the picture URLs and create thumbnail elements -->
             <?php foreach ($picture_urls as $url): ?>
