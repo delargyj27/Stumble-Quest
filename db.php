@@ -1,9 +1,14 @@
 <?php
 
+// $db = "if0_36069118_dbsquest";
+// $host = "localhost";
+// $user = 'jkmapdev1';
+// $pass = 'proximity';
+
 $db = "if0_36069118_dbsquest";
-$host = "localhost";
-$user = 'jkmapdev1';
-$pass = 'proximity';
+$host = "sql105.infinityfree.com";
+$user = 'if0_36069118';
+$pass = '44WqSXc31wzj7';
 
 //PDO Connection
 try {
@@ -12,7 +17,7 @@ try {
     //echo "Connected successfully";
 }
 catch(PDOException $e){
-    //echo "Connection failed: " . $e->getMessage();
+    echo "Connection failed: " . $e->getMessage();
 }
 
 function p($arr){
