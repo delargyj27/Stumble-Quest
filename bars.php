@@ -1,13 +1,12 @@
 <?php
-// Start the session to access session variables
 session_start();
 
-// Connect to MySQL database
 $servername = "sql105.infinityfree.com";
 $username = "if0_36069118";
 $password = "44WqSXc31wzj7";
 $dbname = "if0_36069118_dbsquest";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -15,12 +14,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Apply Filters if Set
+// Check if filter parameters are set
 $filterSql = "";
-
-// Array to store individual filter conditions
 $conditions = [];
-
 if (isset($_GET['wheelchair'])) {
     $wheelchairFilter = $_GET['wheelchair'] === 'Yes' ? 'Yes' : null;
     $conditions[] = "(wheelchair_accessible = '$wheelchairFilter' OR wheelchair_accessible IS NULL)";
@@ -43,103 +39,60 @@ if (!empty($conditions)) {
 $sql = "SELECT * FROM bars WHERE 1" . $filterSql;
 $result = $conn->query($sql);
 
-// Error handling
-if (!$result) {
+// Check if result is valid
+if ($result === false) {
     die("Error executing query: " . $conn->error);
 }
 
-// Generate HTML for each bar profile box
+// Generate HTML for bar profiles
 $html = "";
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $barId = $row['barid']; // Updated to use 'barid'
+        $barId = $row['barid'];
         $barName = $row["barname"];
         $description = $row["description"];
         $menuUrl = $row["menuurl"];
-        $address = $row["baraddress"]; // Corrected column name
-        $rating = $row["rating"]; // Assuming rating is fetched from database
-        
-        // Generate HTML for rating stars
-        $starsHtml = "";
-        if ($rating !== null) {
-            // Calculate the number of full and empty mugs based on the rating
-            $fullMugs = floor($rating);
-            $emptyMugs = 5 - $fullMugs;
-            
-            // Display full mugs
-            $starsHtml .= str_repeat("<img src='images/pint.png' alt='Full Mug'>", $fullMugs);
-            
-            // Display empty mugs
-            $starsHtml .= str_repeat("<img src='images/selected_beer.png' alt='Empty Mug'>", $emptyMugs);
-        } else {
-            // If rating is null
-            $starsHtml = "No ratings yet";
-        }
-        
-        // Generate the HTML for each bar profile box with the dynamic link
+        $address = $row["baraddress"];
+
+        // Generate HTML for each bar profile box
         $html .= "<div class='bar-profile'>
             <div class='bar-image'>
                 <h2>$barName</h2>
             </div>
-            <div class='bar-info'>";
-        
-        // Add bar name
-        $html .= "<p>Bar Name: $barName</p>";
+            <div class='bar-info'>
+                <p>Bar Name: $barName</p>
+                <p>Description: $description</p>";
 
-        // Add description
-        $html .= "<p>Description: $description</p>";
-
-        // Check if menu URL exists
+        // Add menu URL if available
         if (!empty($menuUrl)) {
             $html .= "<p><a href='$menuUrl'>Menu</a></p>";
         }
 
-        // Add address
-        $html .= "<p>Address: $address</p>";
-
-        // Add rating form
-        $html .= "<form class='rating-form' action='submit_review.php' method='post'>"; // Updated action attribute
-        $html .= "<label for='rating_$barId'>Rate their Food:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='food' min='0' max='5' step='0.1'>";
-        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
-        $html .= "<label for='rating_$barId'>          </label>";
-        $html .= "<label for='rating_$barId'>Rate their Service:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='service' min='0' max='5' step='0.1'>";
-        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
-        $html .= "<label for='rating_$barId'>          </label>";
-        $html .= "<label for='rating_$barId'>Rate their Drinks:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='drinks' min='0' max='5' step='0.1'>";
-        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
-        $html .= "<label for='rating_$barId'>          </label>";
-        $html .= "<label for='rating_$barId'>Rate their Vibes:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='vibe' min='0' max='5' step='0.1'>";
-        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
-        $html .= "<label for='rating_$barId'>          </label>";
-        $html .= "<label for='rating_$barId'>Rate their Cleanliness:</label>";
-        $html .= "<input type='number' id='rating_$barId' class='bar-rating' name='cleanliness' min='0' max='5' step='0.1'>";
-        $html .= "<input type='hidden' name='barid' value='$barId'>"; // Updated name attribute
-        
-        // Add textarea for review text
-        $html .= "<label for='reviewtext_$barId'>Write your review:</label>";
-        $html .= "<textarea id='reviewtext_$barId' class='bar-review-text' name='reviewtext'></textarea>";
-
-        $html .= "<button type='submit'>Submit</button>";
-        $html .= "</form>";
-
-        // Add rating stars
-        $html .= "<div class='rating'>$starsHtml</div>";
-        
-        $html .= "</div>
+        $html .= "<p>Address: $address</p>
+                <form class='rating-form' action='submit_review.php' method='post'>
+                    <label for='food'>Food:</label>
+                    <input type='number' id='food' class='rating' name='food' min='0' max='5' step='0.1'>
+                    <label for='services'>Service:</label>
+                    <input type='number' id='services' class='rating' name='services' min='0' max='5' step='0.1'>
+                    <label for='drinks'>Drinks:</label>
+                    <input type='number' id='drinks' class='rating' name='drinks' min='0' max='5' step='0.1'>
+                    <label for='vibe'>Vibe:</label>
+                    <input type='number' id='vibe' class='rating' name='vibe' min='0' max='5' step='0.1'>
+                    <label for='cleanliness'>Cleanliness:</label>
+                    <input type='number' id='cleanliness' class='rating' name='cleanliness' min='0' max='5' step='0.1'>
+                    <input type='hidden' name='barid' value='$barId'>
+                    <button type='submit'>Submit</button>
+                </form>
+            </div>
         </div>";
     }
 } else {
     $html = "No bars found.";
 }
 
-// Close MySQL connection
+// Close connection
 $conn->close();
 
-// Return the generated HTML
+// Output HTML
 echo $html;
 ?>
-

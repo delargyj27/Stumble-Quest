@@ -1,56 +1,54 @@
 <?php
-session_start(); // Start the session to access session variables
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Check if the user is already logged in
-if (!isset($_SESSION['userid'])) {
-    // Redirect the user to the login page if they are not logged in
-    header("Location: login.php");
-    exit(); // Stop script execution after redirection
-}
+session_start();
 
-// Check if the logged-in user is user with ID 6
-if ($_SESSION['userid'] != 6) {
-    echo "Only user with ID 6 can submit reviews.";
-    exit(); // Stop script execution
-}
-
-// Connect to the database
 $servername = "sql105.infinityfree.com";
 $username = "if0_36069118";
 $password = "44WqSXc31wzj7";
 $dbname = "if0_36069118_dbsquest";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check the connection
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the review text, rating, and bar ID are set
-if (isset($_POST['reviewtext'], $_POST['food'], $_POST['services'], $_POST['drinks'], $_POST['vibe'], $_POST['cleanliness'], $_POST['barid'])) {
-    // Sanitize inputs to prevent SQL injection
-    $reviewText = mysqli_real_escape_string($conn, $_POST['reviewtext']);
-    $food = mysqli_real_escape_string($conn, $_POST['food']);
-    $services = mysqli_real_escape_string($conn, $_POST['services']);
-    $drinks = mysqli_real_escape_string($conn, $_POST['drinks']);
-    $vibe = mysqli_real_escape_string($conn, $_POST['vibe']);
-    $cleanliness = mysqli_real_escape_string($conn, $_POST['cleanliness']);
-    $barId = mysqli_real_escape_string($conn, $_POST['barid']);
-    $userId = $_SESSION['userid']; // Retrieve user ID from session variable
+if (isset($_POST['barid'], $_POST['food'], $_POST['services'], $_POST['drinks'], $_POST['vibe'], $_POST['cleanliness'])) {
+    $barId = $_POST['barid'];
+    $food = $_POST['food'];
+    $services = $_POST['services'];
+    $drinks = $_POST['drinks'];
+    $vibe = $_POST['vibe'];
+    $cleanliness = $_POST['cleanliness'];
 
-    // Insert the review into the database
-    $sql = "INSERT INTO userreviews (userid, barid, food, service, drinks, vibe, cleanliness, reviewtext) VALUES ($userId, $barId, $food, $services, $drinks, $vibe, $cleanliness, '$reviewText')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Review submitted successfully!";
-    } else {
-        echo "Error inserting review: " . $conn->error;
+    // Prepare statement
+    $stmt = $conn->prepare("UPDATE bars SET food=?, service=?, drinks=?, vibe=?, cleanliness=? WHERE barid=?");
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
     }
 
+    // Bind parameters
+    $stmt->bind_param("iiiiii", $food, $services, $drinks, $vibe, $cleanliness, $barId);
+
+    // Execute statement
+    if ($stmt->execute()) {
+        // Redirect back to bars.html
+        header("Location: bars.html");
+        exit; // Make sure to exit after redirecting
+    } else {
+        echo "Error updating review: " . $stmt->error;
+    }
+
+    // Close statement
+    $stmt->close();
 } else {
-    echo "Review text, rating, or bar ID not set.";
+    echo "Review details are incomplete.";
 }
 
-// Close the database connection
+// Close connection
 $conn->close();
 ?>

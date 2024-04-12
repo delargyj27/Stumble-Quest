@@ -33,7 +33,7 @@ session_start();
         <ul class="menu">
             <li><a href="index.php">Home</a></li>
             <li><a href="map.html">Map</a></li>
-            <li><a href="bars.php">Bars</a></li>
+            <li><a href="bars.html">Bars</a></li>
             <li><a href="crawl.html">Crawl</a></li>
             <li><a href="events.html">Calander</a></li>
             <li><a href="aboutUs.html">FAQ</a></li>

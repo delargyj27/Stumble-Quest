@@ -21,23 +21,45 @@ if ($conn->connect_error) {
 
 // Retrieve managerid from the session
 $manager_id = isset($_SESSION["managerid"]) ? $_SESSION["managerid"] : null;
-$sql = "SELECT barname, menuurl, description, baraddress, outdoor_seating, wheelchair_accessible, live_music, food, service, vibe, drinks, cleanliness, safety, barid
+$sql = "SELECT barname, menuurl, description, baraddress, outdoor_seating, wheelchair_accessible, counter, live_music, food, service, vibe, drinks, cleanliness, safety, barid
 FROM bars 
 WHERE managerid = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $manager_id);
 $stmt->execute();
-$stmt->bind_result($name, $menu, $description, $address, $outdoor_seating, $wheelchair_accessible, $live_music, $food, $service, $vibe, $drinks, $cleanliness, $safety, $barid);
+$stmt->bind_result($name, $menu, $description, $address, $outdoor_seating, $wheelchair_accessible, $counter, $live_music, $food, $service, $vibe, $drinks, $cleanliness, $safety, $barid);
 $stmt->fetch();
+
+// Calculate the ratings
+$live_music_rating = calculateRating($live_music, $counter);
+$food_rating = calculateRating($food, $counter);
+$service_rating = calculateRating($service, $counter);
+$vibe_rating = calculateRating($vibe, $counter);
+$drinks_rating = calculateRating($drinks, $counter);
+$cleanliness_rating = calculateRating($cleanliness, $counter);
+$safety_rating = calculateRating($safety, $counter);
+
+// Function to calculate the rating
+function calculateRating($value, $counter): int
+{
+    if ($counter != 0) {
+        $value = (float)$value;
+        $counter = (int)$counter;
+        $rating = round($value / $counter);
+        return $rating;
+    } else {
+        return 0;
+    }
+}
 
 // Close statement
 $stmt->close();
 
-// Query to fetch the top 8 picture URLs
+// Query to fetch the top 4 picture URLs
 $sql = "SELECT photourl 
 FROM barphotos 
 where barid = ? 
-ORDER BY barid LIMIT 8";
+ORDER BY barid LIMIT 4";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $barid);
 $stmt->execute();
@@ -226,27 +248,27 @@ $conn->close();
             <h2>Ratings</h2>
             <div class="rating-item">
                 <label for="food">Food:</label>
-                <div class="rating-value" id="food"><?php echo number_format($food, 1); ?></div>
+                <div class="rating-value" id="food"><?php echo $food_rating; ?></div>
             </div>
             <div class="rating-item">
                 <label for="service">Service:</label>
-                <div class="rating-value" id="service"><?php echo number_format($service, 1); ?></div>
+                <div class="rating-value" id="service"><?php echo $service_rating; ?></div>
             </div>
             <div class="rating-item">
                 <label for="vibe">Vibe:</label>
-                <div class="rating-value" id="vibe"><?php echo number_format($vibe, 1); ?></div>
+                <div class="rating-value" id="vibe"><?php echo $vibe_rating; ?></div>
             </div>
             <div class="rating-item">
                 <label for="drinks">Drinks:</label>
-                <div class="rating-value" id="drinks"><?php echo number_format($drinks, 1); ?></div>
+                <div class="rating-value" id="drinks"><?php echo $drinks_rating; ?></div>
             </div>
             <div class="rating-item">
                 <label for="cleanliness">Cleanliness:</label>
-                <div class="rating-value" id="cleanliness"><?php echo number_format($cleanliness, 1); ?></div>
+                <div class="rating-value" id="cleanliness"><?php echo $cleanliness_rating; ?></div>
             </div>
             <div class="rating-item">
                 <label for="safety">Safety:</label>
-                <div class="rating-value" id="safety"><?php echo number_format($safety, 1); ?></div>
+                <div class="rating-value" id="safety"><?php echo $service_rating; ?></div>
             </div>
         </div>
 
@@ -270,7 +292,7 @@ $conn->close();
     </div>
     <!-- Pictures -->
     <div class="pictures-box">
-        <button class="pictures-button">Bar Pictures</button>
+        <button onclick="window.location.href='gallery.php'"  class="pictures-button">Bar Pictures</button>
         <div class="thumbnails">
             <!-- Loop through the picture URLs and create thumbnail elements -->
             <?php foreach ($picture_urls as $url): ?>

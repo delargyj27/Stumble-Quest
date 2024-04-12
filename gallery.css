@@ -229,20 +229,18 @@ h1 {
 
 .thumbnails {
     display: flex;
-    overflow-x: auto; /* horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Snap to each thumbnail */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    flex-wrap: wrap; /* Display thumbnails in rows */
+    justify-content: space-between; /* Distribute thumbnails evenly */
     margin-top: 20px;
 }
 
 .thumbnail {
-    flex: 0 0 auto; /* Ensure thumbnails don't grow */
-    scroll-snap-align: start; /* Snap to start of each thumbnail */
-    margin-right: 10px; /* Adjust spacing between thumbnails */
+    flex: 0 0 calc(33.33% - 10px); /* Each thumbnail occupies one-third of the space in the row */
+    margin-bottom: 20px; /* Add margin between rows */
 }
 
 .thumbnail img {
-    width: 1000px !important;
+    width: 300px !important;
     height: auto;
     border: 1px solid #ccc;
 }
