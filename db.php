@@ -10,6 +10,7 @@ $host = "sql105.infinityfree.com";
 $user = 'if0_36069118';
 $pass = '44WqSXc31wzj7';
 
+
 //PDO Connection
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
