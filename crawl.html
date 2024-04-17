@@ -271,30 +271,30 @@
         });
 
         //get our data from php function
-        getAllEvents();
+        //getAllEvents();
     });
 
     //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
     //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the 
     //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in 
     //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^. ????  
-    function getAllEvents() {
-        $.ajax({
-            url: "./api/getAllEvents.php",
-            contentType: "application/json",
-            dataType: "json",
-            success: function (eventData) {
-                console.log(eventData)
-                map.getSource('places').setData({
-                    'type': 'FeatureCollection',
-                    'features': eventData
-                });
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    }
+    // function getAllEvents() {
+    //     $.ajax({
+    //         url: "./api/getAllEvents.php",
+    //         contentType: "application/json",
+    //         dataType: "json",
+    //         success: function (eventData) {
+    //             console.log(eventData)
+    //             map.getSource('places').setData({
+    //                 'type': 'FeatureCollection',
+    //                 'features': eventData
+    //             });
+    //         },
+    //         error: function (e) {
+    //             console.log(e);
+    //         }
+    //     });
+    // }
 
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -352,6 +352,7 @@
 <script type="module">
     import { getAllBars } from "./api/bars.js";
     import { html } from "./utils/html.js";
+    import { getAllEvents } from "./api/events.js";
 
     const div = document.querySelector("#bar-buttons");
     const mapDiv = document.querySelector("#map");
@@ -359,7 +360,10 @@
     // TODO: Add buttons into the div...
 
     const bars = await getAllBars();
+    /** @type {object[]} */
+    const events = await getAllEvents();
     console.log("bars: ", bars);
+    console.log("events: ", events);
 
     for(const bar of bars){
         const button = html(`
@@ -385,9 +389,22 @@
         button.onclick = () => {
             const popup = html(`
                 <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
-                    ${bar.barname}
+                    <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
+    
+                    <p class="text-sm text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
+
+                    <div>
+                        ${events.map(
+                            event => `
+                                <div>
+                                    ${event.eventname}
+
+                                </div>                            `
+                        ).join("")}
+                    </div>
                 </div>
             `);
+
             mapDiv.append(popup);
 
 

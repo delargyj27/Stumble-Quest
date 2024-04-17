@@ -3,7 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 include('db.php');
 
 $sql = "SELECT * FROM events";
-
+/*
 try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -27,6 +27,18 @@ try {
 } catch (Exception $e) {
     die($e);
 }
+*/
 
-echo json_encode($returnData);
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC); //data resulting from that query
+
+    //Send data to front end - problem with this line here
+    echo json_encode($data, JSON_THROW_ON_ERROR ); 
+} catch (Exception $e) {
+    echo $e;
+    die($e);
+}
+
 ?>

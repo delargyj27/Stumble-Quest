@@ -156,9 +156,9 @@ $conn->close();
 <body>
 <div class="top-bar">
     <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
-
     <ul>
-        <li><a href=""><ion-icon name="logo-instagram"></ion-icon></a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
     </ul>
 </div>
 
@@ -171,12 +171,10 @@ $conn->close();
     </div>
     <ul class="menu">
         <li><a href="index.html">Home</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="login.html">Login</a></li>
         <li><a href="map.html">Map</a></li>
-        <li><a href="bars.html">Bars</a></li>
+        <li><a href="bar.html">Bars</a></li>
         <li><a href="crawl.html">Crawl</a></li>
-        <li><a href="events.html">Calendar</a></li>
+        <li><a href="events.html">Calander</a></li>
         <li><a href="aboutUs.html">FAQ</a></li>
     </ul>
 </nav>
@@ -276,7 +274,7 @@ $conn->close();
         <div class="events-container">
             <div class="events-header">
                 <h2>Events</h2>
-                <button class="edit-button">Edit Events</button>
+                <a href="barEventsPage.php" class="edit-button">Event Details</a>
             </div>
             <?php if (!empty($events)): ?>
                 <?php foreach ($events as $event): ?>
