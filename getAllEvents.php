@@ -3,6 +3,8 @@ header('Content-Type: application/json; charset=utf-8');
 include('db.php');
 
 $sql = "SELECT * FROM events";
+//$sql = "SELECT eventname, eventdate, start_time, end_time FROM events WHERE barid = ?";
+
 /*
 try {
     $stmt = $pdo->prepare($sql);

@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stumble Quest - Bars</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-        type="text/css">
-    <link href="./output.css" rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
+    <link href="./output.css" rel="stylesheet" />
     <style>
-        /*
+      /*
         .mapboxgl-marker {
             background-image: url('./dist/pint.png');            
             background-size: cover;
@@ -25,37 +31,41 @@
             border-radius: 50%;
             cursor: pointer;
         }
-        */  
-        .h-screen {
-            height: 100vh;
-            overflow: auto;
-        }      
-        .marker {
-            display: block;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 0;
-        } 
-              
+        */
+      .h-screen {
+        height: 100vh;
+        overflow: auto;
+      }
+      .marker {
+        display: block;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 0;
+      }
     </style>
-</head>
-<body>
-<div class="top-bar">
-    <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
-    <ul>
-        <li><a href=""><ion-icon name="logo-instagram"></ion-icon></a></li>
-    </ul>
-</div>
+  </head>
+  <body>
+    <div class="top-bar">
+      <a href="tel:(631)-000-0000"
+        ><ion-icon name="call-outline"></ion-icon>
+        <span>Click To Call Our Team Now!</span></a
+      >
+      <ul>
+        <li>
+          <a href=""><ion-icon name="logo-instagram"></ion-icon></a>
+        </li>
+      </ul>
+    </div>
 
-<nav>
-    <div class="logo">
-        <a href="#"><img src="images/pint.png" alt="logo">Stumble Quest</a>
-    </div>
-    <div class="toggle">
+    <nav>
+      <div class="logo">
+        <a href="#"><img src="images/pint.png" alt="logo" />Stumble Quest</a>
+      </div>
+      <div class="toggle">
         <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
-    </div>
-    <ul class="menu">
+      </div>
+      <ul class="menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="register.html">Register</a></li>
         <li><a href="login.html">Login</a></li>
@@ -64,15 +74,15 @@
         <li><a href="crawl.html">Crawl</a></li>
         <li><a href="events.html">Calendar</a></li>
         <li><a href="aboutUs.html">FAQ</a></li>
-    </ul>
-</nav>
+      </ul>
+    </nav>
 
-<div class="flex font-sans">
-    <!-- SIDEBAR -->
-    <div class="w-1/5 bg-gray-900 h-screen">
+    <div class="flex font-sans">
+      <!-- SIDEBAR -->
+      <div class="w-1/5 bg-gray-900 h-screen">
         <!-- LOGO -->
-        <div class="flex justify-center pt-8 pb-8 border-b border-b-white">  
-            <img src="./dist/pint.png" class="h-14" />
+        <div class="flex justify-center pt-8 pb-8 border-b border-b-white">
+          <img src="./dist/pint.png" class="h-14" />
         </div>
         <!--
         <h3 class="text-white font-bold  text-center text-3xl mt-8 flex items-center w-full justify-center">
@@ -103,13 +113,16 @@
         <div class="w-5/6 mx-auto flex justify-end">
             <button type="button" class="submit-button" onclick="addEvent()">Add Event</button>
         </div>-->
-        <div class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
-            <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">Bars & Restaurants -<br>Main St.,
-                Farmingdale, NY</h2>
-                          
-            <!--<button id="reset-view">Reset</button>-->
-            <div id="bar-buttons" class="mt-8 space-y-4">
-                <!-- 
+        <div
+          class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700"
+        >
+          <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">
+            Bars & Restaurants -<br />Main St., Farmingdale, NY
+          </h2>
+
+          <!--<button id="reset-view">Reset</button>-->
+          <div id="bar-buttons" class="mt-8 space-y-4">
+            <!-- 
                 <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
                     <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
                 
@@ -186,186 +199,221 @@
                         <p class="text-xs text-gray-500 dark:text-gray-400">273 Main St., Farmingdale, NY</p>
                     </div>
                 </button> -->
-            </div>
+          </div>
         </div>
-    </div>
-    
-    <div class="h-screen w-full" id="map" >
-        
+      </div>
+
+      <div class="h-screen w-full" id="map">
         <button id="reset-view" class="absolute">Add to Crawl</button>
         <script>
-            //Reset the map view w/ added bar
-            document.querySelector('#reset-view').addEventListener('click', () => {
-                //console.log('click')
-                map.flyTo({
-                    center: INITIAL_CENTER,
-                    zoom: INITIAL_ZOOM,
-                    pitch: 0
-                });
+          //Reset the map view w/ added bar
+          document
+            .querySelector("#reset-view")
+            .addEventListener("click", () => {
+              //console.log('click')
+              map.flyTo({
+                center: INITIAL_CENTER,
+                zoom: INITIAL_ZOOM,
+                pitch: 0,
+              });
             });
         </script>
+      </div>
     </div>
 
-</div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-<script
-    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <script>
+      const INITIAL_CENTER = [-73.445921, 40.732837];
+      const INITIAL_ZOOM = 16.25;
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiamttYXBkZXYiLCJhIjoiY2xzZTJqNGhvMTdmajJqcGR0M2VuamhteiJ9.nvLYDDQBhv_sFGNIwW2oTg";
 
-<script>
-    const INITIAL_CENTER = [-73.445921, 40.732837];
-    const INITIAL_ZOOM = 16.25
-    mapboxgl.accessToken = 'pk.eyJ1IjoiamttYXBkZXYiLCJhIjoiY2xzZTJqNGhvMTdmajJqcGR0M2VuamhteiJ9.nvLYDDQBhv_sFGNIwW2oTg';
-
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
         center: INITIAL_CENTER,
         zoom: INITIAL_ZOOM,
+      });
 
-    });
-
-    map.on('load', function() {
+      map.on("load", function () {
         map.resize();
         //place object we will add our events to
-        map.addSource('places', {
-            'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': [] // data of events
-            }
+        map.addSource("places", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [], // data of events
+          },
         });
         //add place object to map
         map.addLayer({
-            'id': 'places',
-            'type': 'symbol',
-            'source': 'places',
-            'layout': {
-                'icon-image': '{icon}',
-                'icon-allow-overlap': true
-            }
+          id: "places",
+          type: "symbol",
+          source: "places",
+          layout: {
+            "icon-image": "{icon}",
+            "icon-allow-overlap": true,
+          },
         });
 
         //Handle popups
-        map.on('click', 'places', (e) => {
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const description = e.features[0].properties.description;
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
+        map.on("click", "places", (e) => {
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const description = e.features[0].properties.description;
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
         });
 
         //Handle pointer styles
-        map.on('mouseenter', 'places', () => {
-            map.getCanvas().style.cursor = 'pointer';
+        map.on("mouseenter", "places", () => {
+          map.getCanvas().style.cursor = "pointer";
         });
-        map.on('mouseleave', 'places', () => {
-            map.getCanvas().style.cursor = '';
+        map.on("mouseleave", "places", () => {
+          map.getCanvas().style.cursor = "";
         });
 
         //get our data from php function
         //getAllEvents();
-    });
+      });
 
-    //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
-    //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the 
-    //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in 
-    //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^. ????  
-    // function getAllEvents() {
-    //     $.ajax({
-    //         url: "./api/getAllEvents.php",
-    //         contentType: "application/json",
-    //         dataType: "json",
-    //         success: function (eventData) {
-    //             console.log(eventData)
-    //             map.getSource('places').setData({
-    //                 'type': 'FeatureCollection',
-    //                 'features': eventData
-    //             });
-    //         },
-    //         error: function (e) {
-    //             console.log(e);
-    //         }
-    //     });
-    // }
+      //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
+      //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the
+      //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in
+      //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^. ????
+      // function getAllEvents() {
+      //     $.ajax({
+      //         url: "./api/getAllEvents.php",
+      //         contentType: "application/json",
+      //         dataType: "json",
+      //         success: function (eventData) {
+      //             console.log(eventData)
+      //             map.getSource('places').setData({
+      //                 'type': 'FeatureCollection',
+      //                 'features': eventData
+      //             });
+      //         },
+      //         error: function (e) {
+      //             console.log(e);
+      //         }
+      //     });
+      // }
 
-    const geocoder = new MapboxGeocoder({
+      const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-    });
+      });
 
-    geocoder.addTo('#geocoder');
+      geocoder.addTo("#geocoder");
 
-    var geocoderResult = {};
+      var geocoderResult = {};
 
-    geocoder.on('result', (e) => {
-        geocoderResult = e.result, null, 2;
-    });
+      geocoder.on("result", (e) => {
+        (geocoderResult = e.result), null, 2;
+      });
 
-    // Clear results container when search is cleared.
-    geocoder.on('clear', () => {
+      // Clear results container when search is cleared.
+      geocoder.on("clear", () => {
         geocoderResult = {};
-    });
+      });
 
-    function addEvent() {
+      function addEvent() {
         if (geocoderResult == {}) {
-            return false;
+          return false;
         }
         var postObj = {
-            name: $("#eventName").val(),
-            description: $("#eventDescription").val(),
-            lat: geocoderResult.center[0],
-            lng: geocoderResult.center[1],
-        }
+          name: $("#eventName").val(),
+          description: $("#eventDescription").val(),
+          lat: geocoderResult.center[0],
+          lng: geocoderResult.center[1],
+        };
 
         //Add validation - ex. certain length for text fields, a star rating, etc.
 
         $.ajax({
-            url: "./api/createEvent.php",
-            type: 'POST',
-            data: postObj,
-            dataType: "json",
-            success: function (resp) {
-                if (resp == 'success') {
-                    //reset form & get new data
-                    $("#eventName").val('');
-                    $("#eventDescription").val('');
-                    geocoder.clear();
-                    getAllEvents();
-                }
-            },
-            error: function (e) {
-                console.log(e);
+          url: "./api/createEvent.php",
+          type: "POST",
+          data: postObj,
+          dataType: "json",
+          success: function (resp) {
+            if (resp == "success") {
+              //reset form & get new data
+              $("#eventName").val("");
+              $("#eventDescription").val("");
+              geocoder.clear();
+              getAllEvents();
             }
+          },
+          error: function (e) {
+            console.log(e);
+          },
         });
+      }
+    </script>
+    <!-- <script src="./api/bars.js" type="module"></script> -->
+    <script type="module">
+      import { getAllBars } from "./api/bars.js";
+      import { html } from "./utils/html.js";
+      import { getAllEvents } from "./api/events.js";
+      import { getCrawl } from "./api/crawls.js";
 
-    }
+      const div = document.querySelector("#bar-buttons");
+      const mapDiv = document.querySelector("#map");
 
-</script>
-<!-- <script src="./api/bars.js" type="module"></script> -->
-<script type="module">
-    import { getAllBars } from "./api/bars.js";
-    import { html } from "./utils/html.js";
-    import { getAllEvents } from "./api/events.js";
+      // TODO: Add buttons into the div...
 
-    const div = document.querySelector("#bar-buttons");
-    const mapDiv = document.querySelector("#map");
+      const url = new URL(window.location);
+      const crawlId = url.searchParams.get("id");
 
-    // TODO: Add buttons into the div...
+      const bars = await getAllBars();
+      /** @type {object[]} */
+      const events = await getAllEvents();
+      /** @type {object[]} */
+      const crawl = await getCrawl(crawlId);
+      console.log("crawl: ", crawl);
+      console.log("bars: ", bars);
+      console.log("events: ", events);
+      //console.log("crawls", crawls);
 
-    const bars = await getAllBars();
-    /** @type {object[]} */
-    const events = await getAllEvents();
-    console.log("bars: ", bars);
-    console.log("events: ", events);
+      const popup = html(`
+        <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
+            <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">
+                ${crawl.name}
+            </h1>
 
-    for(const bar of bars){
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                ${crawl.date}
+            </p>
+
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                ${crawl.start_time}
+            </p>
+
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                ${crawl.description}
+            </p>
+
+            
+        </div>
+      `);
+
+      mapDiv.append(popup);
+
+      for (const bar of bars) {
         const button = html(`
             <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
                 <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
@@ -377,65 +425,68 @@
                 </div>
             </button>
         `);
-        
-//         .popup {
-//              position: absolute;
-//              right: 50px;
-//              top: 50%;
-//              transform: translateY(-50%);
-//              background: white;
-//              padding: 20px;
-//          }
+
+        //         .popup {
+        //              position: absolute;
+        //              right: 50px;
+        //              top: 50%;
+        //              transform: translateY(-50%);
+        //              background: white;
+        //              padding: 20px;
+        //          }
+
         button.onclick = () => {
-            const popup = html(`
+          const popup = html(`
                 <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
-                    <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
+                    <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${
+                      bar.barname
+                    }</h1>
     
-                    <p class="text-sm text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">${
+                      bar.baraddress
+                    }, Farmingdale, NY</p>
 
                     <div>
-                        ${events.map(
-                            event => `
+                        ${events
+                          .map(
+                            (event) => `
                                 <div>
                                     ${event.eventname}
 
                                 </div>                            `
-                        ).join("")}
+                          )
+                          .join("")}
                     </div>
                 </div>
             `);
 
-            mapDiv.append(popup);
+          mapDiv.append(popup);
 
+          map.flyTo({
+            center: [bar.location_longitude, bar.location_latitude],
+            zoom: 20,
+          });
 
-            map.flyTo({center: [bar.location_longitude, bar.location_latitude], zoom: 20});
+          // const marker1 = new mapboxgl.Marker({
+          //     scale: 0.6
+          // })
+          const el = document.createElement("div");
+          // const width = marker.properties.iconSize[0];
+          // const height = marker.properties.iconSize[1];
+          el.className = "marker";
+          el.style.backgroundImage = `url('./dist/pint.png')`;
+          el.style.width = `50px`;
+          el.style.height = `50px`;
+          el.style.backgroundSize = "100%";
 
-            // const marker1 = new mapboxgl.Marker({
-            //     scale: 0.6
-            // })
-            const el = document.createElement('div');
-            // const width = marker.properties.iconSize[0];
-            // const height = marker.properties.iconSize[1];
-            el.className = 'marker';
-            el.style.backgroundImage = `url('./dist/pint.png')`;
-            el.style.width = `50px`;
-            el.style.height = `50px`;
-            el.style.backgroundSize = '100%';
-            
-            new mapboxgl.Marker(el)
-                .setLngLat([bar.location_longitude, bar.location_latitude])
-                //.setPopup(popup) // sets a popup on this marker
-                .addTo(map);                
-        }         
+          new mapboxgl.Marker(el)
+            .setLngLat([bar.location_longitude, bar.location_latitude])
+            //.setPopup(popup) // sets a popup on this marker
+            .addTo(map);
+        };
 
         div.append(button);
-    }
-</script>
-
-
-
-
-
-
-</body>
+      }
+    </script>
+  </body>
 </html>
