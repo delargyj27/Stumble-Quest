@@ -155,7 +155,7 @@ $conn->close();
             <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
         </div>
         <ul class="menu">
-            <li><a href="index.php">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="map.php">Map</a></li>
             <li><a href="bars.html">Bars</a></li>
             <li><a href="crawl.html">Crawl</a></li>
