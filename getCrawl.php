@@ -11,7 +11,7 @@ try {
     $stmt->execute([$_GET["id"]]);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC); //data resulting from that query
 
-    //Send data to front end - problem with this line here
+    //Send data to front end 
     echo json_encode($data[0], JSON_THROW_ON_ERROR ); 
 } catch (Exception $e) {
     echo $e;
