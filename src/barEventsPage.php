@@ -197,8 +197,8 @@ $conn->close();
         <li><a href="index.html">Home</a></li>
         <li><a href="map.html">Map</a></li>
         <li><a href="bar.html">Bars</a></li>
-        <li><a href="crawl.html">Crawl</a></li>
-        <li><a href="events.html">Calander</a></li>
+        <li><a href="crawls.php">Crawl</a></li>
+        <li><a href="crawls.html">Calander</a></li>
         <li><a href="aboutUs.html">FAQ</a></li>
     </ul>
 </nav>

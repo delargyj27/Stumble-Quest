@@ -1,37 +1,22 @@
 <?php
-// Start session
 session_start();
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Connect to MySQL database
 $servername = "sql105.infinityfree.com";
 $username = "if0_36069118";
 $password = "44WqSXc31wzj7";
 $dbname = "if0_36069118_dbsquest";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Retrieve userid from the session
 $userId = isset($_SESSION["userid"]) ? $_SESSION["userid"] : null;
-$sql = "SELECT username, nickname 
-FROM users
-WHERE userid = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$stmt->bind_result($userName, $nickname);
-$stmt->fetch();
-
-// Close statement
-$stmt->close();
 
 // Check if the "Update" button is clicked
 if (isset($_POST['update-button'])) {
@@ -57,6 +42,43 @@ if (isset($_POST['update-button'])) {
     }
 }
 
+// Query crawl invites for the current user
+$sql = "SELECT invite_id, status, sent_at FROM crawl_members WHERE userid = ? AND status = 'pending'";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$stmt->bind_result($inviteId, $status, $sentAt);
+
+// Store results in an array
+$invites = [];
+while ($stmt->fetch()) {
+    $invite = [
+        "inviteId" => $inviteId,
+        "status" => $status,
+        "sentAt" => $sentAt
+    ];
+    $invites[] = $invite;
+}
+
+$stmt->close();
+
+// Handle accept/reject action
+if (isset($_POST['action'])) {
+    $inviteId = $_POST['invite_id'];
+    $action = $_POST['action'];
+
+    // Update status in the database
+    $updateSql = "UPDATE crawl_members SET status = ? WHERE userid = ? AND invite_id = ?";
+    $updateStmt = $conn->prepare($updateSql);
+    $updateStmt->bind_param("sii", $action, $userId, $inviteId);
+    $updateStmt->execute();
+    $updateStmt->close();
+
+    // Redirect back to the page after updating status
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+}
+
 $conn->close();
 ?>
 
@@ -69,11 +91,18 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <style>
+        .main-content {
+            display: flex;
+            justify-content: space-between; /* To evenly distribute the containers */
+            margin: 0 auto; /* Center the content horizontally */
+            max-width: 1200px; /* Limit maximum width */
+            margin-top: 40px;
+        }
+
         .container {
-            width: 400px;
+            width: calc(33.33% - 10px); /* Adjust width to fit your layout */
             background-color: #fff;
             box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-            margin: 50px auto; /* Centered vertically and horizontally */
             padding: 10px 20px; /* Added padding */
         }
 
@@ -136,6 +165,11 @@ $conn->close();
             background-color: aquamarine;
             transition: background-color 0.2s;
         }
+        .container .no-invites {
+            margin-top: 20px; /* Adjust spacing */
+            text-align: center; /* Center the message */
+        }
+
     </style>
 </head>
 <body>
@@ -155,10 +189,10 @@ $conn->close();
             <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
         </div>
         <ul class="menu">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="map.php">Map</a></li>
             <li><a href="bars.html">Bars</a></li>
-            <li><a href="crawl.html">Crawl</a></li>
+            <li><a href="crawl.php">Crawl</a></li>
             <li><a href="events.php">Calendar</a></li>
             <li><a href="aboutUs.php">FAQ</a></li>
         </ul>
@@ -197,16 +231,51 @@ $conn->close();
                 <label for="white">White</label><br>
             </div>
         </div>
+
+        <!-- Duplicate the container for left and right side -->
+        <!-- Left Container: Crawl Invites -->
+        <div class="container" id="crawlInvitesContainer">
+            <h1>Crawl Invites</h1>
+            <?php if (!empty($invites)): ?>
+                <ul>
+                    <?php foreach ($invites as $invite): ?>
+                        <li>
+                            <span>Invited by User ID: <?php echo $invite['inviteId']; ?></span><br>
+                            <span>Sent at: <?php echo $invite['sentAt']; ?></span><br>
+                            <?php if ($invite['status'] === 'pending'): ?>
+                                <form method="post" action="">
+                                    <input type="hidden" name="invite_id" value="<?php echo $invite['inviteId']; ?>">
+                                    <button type="submit" name="action" value="accepted">Accept</button>
+                                    <button type="submit" name="action" value="rejected">Reject</button>
+                                </form>
+                            <?php else: ?>
+                                <span>Status: <?php echo $invite['status']; ?></span>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <div class="no-invites">
+                    <p>No pending crawl invites</p>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="container" id="rightContainer">
+            <h1>User Photos</h1>
+            <!-- Add content for User Photos here -->
+        </div>
     </div>
 
     <script>
         // JavaScript to change container background color based on radio button selection
         const radios = document.querySelectorAll('input[type="radio"]');
-        const container = document.getElementById('userContainer');
+        const containers = document.querySelectorAll('.container');
 
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
-                container.style.backgroundColor = this.value;
+                containers.forEach(container => {
+                    container.style.backgroundColor = this.value;
+                });
             });
         });
     </script>

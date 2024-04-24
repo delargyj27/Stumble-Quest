@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute statement
         if ($stmt->execute()) {
             // Redirect back to bars.php after successful update
-            header("Location: bars.php");
+            header("Location: bars.html");
             exit; // Make sure to exit after redirecting
         } else {
             echo "Error updating review: " . $stmt->error;

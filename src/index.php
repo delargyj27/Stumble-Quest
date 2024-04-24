@@ -1,3 +1,10 @@
+<?php
+
+// Start session
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,35 +31,35 @@
             <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
         </div>
         <ul class="menu">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="map.html">Map</a></li>
-            <li><a href="bar.html">Bars</a></li>
-            <li><a href="crawls.php">Crawl</a></li>
+            <li><a href="bars.html">Bars</a></li>
+            <li><a href="crawl.html">Crawl</a></li>
             <li><a href="events.html">Calander</a></li>
             <li><a href="aboutUs.html">FAQ</a></li>
         </ul>
     </nav>
-
-    <div class="register">
-        <h1>Login</h1>
-        <form action="/login.php" method="post">
-            <label for="username">Username</label>
-            <input type="text" name="username" placeholder="Username" id="username" required>
-            <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Password" id="password" required>
-            <input type="submit" value="Login"> 
-        </form>
-    </div>
-
-    <script>
-        const toggleButton = document.querySelector('.toggle a');
-        const menu = document.querySelector('.menu');
-
-        toggleButton.addEventListener('click', () => {
-            menu.classList.toggle('active');
-        });
-    </script>
     
+<div class="container">
+  <div class="about-us">
+      <h1>Welcome!</h1>
+      <p>Welcome to Stumble Quest, your ultimate guide to exploring the best bars and nightlife in your area. Whether you're planning a night out with friends or looking for new and exciting places to visit, we've got you covered.</p>
+  </div>
+  <div class="calendar">
+      <h1>Events Calendar</h1>
+      <iframe src="https://calendar.google.com/calendar/embed?src=yourcalendarid" style="border: 0" width="400" height="300" frameborder="0" scrolling="no"></iframe>
+  </div>
+</div>
+
+<script>
+    const toggleButton = document.querySelector('.toggle a');
+    const menu = document.querySelector('.menu');
+
+    toggleButton.addEventListener('click', () => {
+        menu.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
 
