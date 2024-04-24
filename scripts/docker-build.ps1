@@ -1,0 +1,1 @@
+docker build -t stumblequest/app:1.0 .

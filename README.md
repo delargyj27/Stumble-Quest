@@ -4,13 +4,23 @@
 
 ### Prerequisites
 
-- Disable `display_errors` in PHP
-- Enable `log_errors` in PHP
+- Download+Run Docker Desktop
+- Enable running scripts in Windows settings
 
-### Run the app
+### NOTES
 
-1. Run AMPPS
-2. Open http://localhost/Stumble-Quest/index.html
+- Error: `cannot take exclusive lock for project "stumble-quest"`
+  Solution: https://github.com/docker/compose/issues/11069#issuecomment-1769694535
+
+### Run the app (Locally)
+
+1. Run
+
+```
+./scripts/run.ps1
+```
+
+2. Open http://localhost/index.html
 
 ### View PHP Error Logs
 

@@ -53,6 +53,20 @@ if ($result->num_rows > 0) {
         $description = $row["description"];
         $menuUrl = $row["menuurl"];
         $address = $row["baraddress"];
+        $rating = $row["rating"];
+
+        // Generate HTML for rating stars
+        $mugWidth = 50; // Adjust the width of the mugs as needed
+        $mugHeight = 'auto'; // Maintain aspect ratio
+        $mugsHtml = "";
+        if ($rating !== null) {
+            $fullMugs = floor($rating);
+            $emptyMugs = 5 - $fullMugs; 
+            $mugsHtml .= str_repeat("<img class='mug-image' style='width: {$mugWidth}px; height: {$mugHeight};' src='images/pint.png' alt='Full Mug'>", $fullMugs);
+            $mugsHtml .= str_repeat("<img class='mug-image' style='width: {$mugWidth}px; height: {$mugHeight};' src='images/selected_beer.png' alt='Empty Mug'>", $emptyMugs);
+        } else {
+            $mugsHtml = "No ratings yet";
+        }
 
         // Generate HTML for each bar profile box
         $html .= "<div class='bar-profile'>
@@ -83,6 +97,7 @@ if ($result->num_rows > 0) {
                     <input type='hidden' name='barid' value='$barId'>
                     <button type='submit'>Submit</button>
                 </form>
+                <div class='rating'>$mugsHtml</div>
             </div>
         </div>";
     }
