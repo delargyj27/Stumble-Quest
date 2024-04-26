@@ -4,12 +4,25 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "sql105.infinityfree.com";
-$username = "if0_36069118";
-$password = "44WqSXc31wzj7";
-$dbname = "if0_36069118_dbsquest";
+// Connect to MySQL database
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// If this is running in the Docker container...
+if ($_SERVER["REMOTE_ADDR"] == "172.18.0.1") {
+    $database = "if0_36069118_dbsquest";
+    // This is the host name of the MariaDB container when running locally
+    $servername = "db";
+    $db_username = 'jkmapdev1';
+    $db_password = 'proximity';
+} else {
+    // Database connection details
+    $servername = "sql105.infinityfree.com";
+    $db_username = "if0_36069118";
+    $db_password = "44WqSXc31wzj7";
+    $database = "if0_36069118_dbsquest";
+}
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -84,6 +97,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,17 +107,22 @@ $conn->close();
     <style>
         .main-content {
             display: flex;
-            justify-content: space-between; /* To evenly distribute the containers */
-            margin: 0 auto; /* Center the content horizontally */
-            max-width: 1200px; /* Limit maximum width */
+            justify-content: space-between;
+            /* To evenly distribute the containers */
+            margin: 0 auto;
+            /* Center the content horizontally */
+            max-width: 1200px;
+            /* Limit maximum width */
             margin-top: 40px;
         }
 
         .container {
-            width: calc(33.33% - 10px); /* Adjust width to fit your layout */
+            width: calc(33.33% - 10px);
+            /* Adjust width to fit your layout */
             background-color: #fff;
             box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-            padding: 10px 20px; /* Added padding */
+            padding: 10px 20px;
+            /* Added padding */
         }
 
         .container h1 {
@@ -165,13 +184,98 @@ $conn->close();
             background-color: aquamarine;
             transition: background-color 0.2s;
         }
+
         .container .no-invites {
-            margin-top: 20px; /* Adjust spacing */
-            text-align: center; /* Center the message */
+            margin-top: 20px;
+            /* Adjust spacing */
+            text-align: center;
+            /* Center the message */
         }
 
+
+
+
+
+
+
+        .crawl-container {
+            width: calc(33.33% - 10px);
+            /* Adjust width to fit your layout */
+            background-color: #fff;
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            /* Added padding */
+        }
+
+        .crawl-container h1 {
+            text-align: center;
+            color: #222;
+            font-size: 24px;
+            font-family: "Poppins", sans-serif;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .crawl-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .crawl-container form label {
+            margin-bottom: 5px;
+        }
+
+        .crawl-container form input[type="text"] {
+            width: calc(100% - 30px);
+            height: 50px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 0 15px;
+        }
+
+        .crawl-container form input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: aqua;
+            border: 0;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            transition: background-color 0.2s;
+        }
+
+        .crawl-container form input[type="submit"]:hover {
+            background-color: aquamarine;
+            transition: background-color 0.2s;
+        }
+
+        .crawl-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: aqua;
+            border: 0;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .crawl-container button:hover {
+            background-color: aquamarine;
+            transition: background-color 0.2s;
+        }
+
+        .crawl-container .no-invites {
+            margin-top: 20px;
+            /* Adjust spacing */
+            text-align: center;
+            /* Center the message */
+        }
     </style>
 </head>
+
 <body>
     <div class="top-bar">
         <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
@@ -192,7 +296,7 @@ $conn->close();
             <li><a href="index.php">Home</a></li>
             <li><a href="map.php">Map</a></li>
             <li><a href="bars.html">Bars</a></li>
-            <li><a href="crawl.php">Crawl</a></li>
+            <li><a href="crawls.php">Crawl</a></li>
             <li><a href="events.php">Calendar</a></li>
             <li><a href="aboutUs.php">FAQ</a></li>
         </ul>
@@ -215,7 +319,7 @@ $conn->close();
                     <input type="submit" name="update-button" value="Update">
                 </div>
             </form>
-            
+
             <!-- Radio buttons to change container background color -->
             <div>
                 <p>Choose Background Color:</p>
@@ -234,33 +338,33 @@ $conn->close();
 
         <!-- Duplicate the container for left and right side -->
         <!-- Left Container: Crawl Invites -->
-        <div class="container" id="crawlInvitesContainer">
+        <div class="crawl-container" id="crawlInvitesContainer">
             <h1>Crawl Invites</h1>
-            <?php if (!empty($invites)): ?>
+            <?php if (!empty($invites)) : ?>
                 <ul>
-                    <?php foreach ($invites as $invite): ?>
+                    <?php foreach ($invites as $invite) : ?>
                         <li>
                             <span>Invited by User ID: <?php echo $invite['inviteId']; ?></span><br>
                             <span>Sent at: <?php echo $invite['sentAt']; ?></span><br>
-                            <?php if ($invite['status'] === 'pending'): ?>
+                            <?php if ($invite['status'] === 'pending') : ?>
                                 <form method="post" action="">
                                     <input type="hidden" name="invite_id" value="<?php echo $invite['inviteId']; ?>">
                                     <button type="submit" name="action" value="accepted">Accept</button>
                                     <button type="submit" name="action" value="rejected">Reject</button>
                                 </form>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <span>Status: <?php echo $invite['status']; ?></span>
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
-            <?php else: ?>
+            <?php else : ?>
                 <div class="no-invites">
                     <p>No pending crawl invites</p>
                 </div>
             <?php endif; ?>
         </div>
-        <div class="container" id="rightContainer">
+        <div class="crawl-container" id="rightContainer">
             <h1>User Photos</h1>
             <!-- Add content for User Photos here -->
         </div>
@@ -280,4 +384,5 @@ $conn->close();
         });
     </script>
 </body>
+
 </html>

@@ -6,14 +6,23 @@ error_reporting(E_ALL);
 // Start session
 session_start();
 
-// Database connection details
-$servername = "sql105.infinityfree.com";
-$username = "if0_36069118";
-$password = "44WqSXc31wzj7";
-$database = "if0_36069118_dbsquest";
+// If this is running in the Docker container...
+if ($_SERVER["REMOTE_ADDR"] == "172.18.0.1") {
+    $database = "if0_36069118_dbsquest";
+    // This is the host name of the MariaDB container when running locally
+    $servername = "db";
+    $db_username = 'jkmapdev1';
+    $db_password = 'proximity';
+} else {
+    // Database connection details
+    $servername = "sql105.infinityfree.com";
+    $db_username = "if0_36069118";
+    $db_password = "44WqSXc31wzj7";
+    $database = "if0_36069118_dbsquest";
+}
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
 // Check connection
 if ($conn->connect_error) {
@@ -75,7 +84,8 @@ $checkRegularUserQuery->close();
 $conn->close();
 
 // Function to redirect to a specific page immediately
-function redirect($url) {
+function redirect($url)
+{
     header("Location: $url");
     exit();
 }
@@ -83,6 +93,7 @@ function redirect($url) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,6 +101,7 @@ function redirect($url) {
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
+
 <body>
     <div class="top-bar">
         <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
@@ -123,7 +135,7 @@ function redirect($url) {
             <input type="text" name="username" placeholder="Username" id="username" required>
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Password" id="password" required>
-            <input type="submit" value="Login"> 
+            <input type="submit" value="Login">
         </form>
     </div>
 
@@ -135,6 +147,7 @@ function redirect($url) {
             menu.classList.toggle('active');
         });
     </script>
-    
+
 </body>
+
 </html>
