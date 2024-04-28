@@ -203,22 +203,7 @@
         </div>
       </div>
 
-      <div class="h-screen w-full" id="map">
-        <button id="reset-view" class="absolute">Add to Crawl</button>
-        <script>
-          //Reset the map view w/ added bar
-          document
-            .querySelector("#reset-view")
-            .addEventListener("click", () => {
-              //console.log('click')
-              map.flyTo({
-                center: INITIAL_CENTER,
-                zoom: INITIAL_ZOOM,
-                pitch: 0,
-              });
-            });
-        </script>
-      </div>
+      <div class="h-screen w-full" id="map"></div>
     </div>
 
     <script>
@@ -370,6 +355,7 @@
       import { html } from "./utils/html.js";
       import { getAllEvents } from "./api/events.js";
       import { getCrawl } from "./api/crawls.js";
+      import { addBarToCrawl } from "./api/crawls.js";
 
       const div = document.querySelector("#bar-buttons");
       const mapDiv = document.querySelector("#map");
@@ -384,6 +370,7 @@
       const events = await getAllEvents();
       /** @type {object[]} */
       const crawl = await getCrawl(crawlId);
+
       console.log("crawl: ", crawl);
       console.log("bars: ", bars);
       console.log("events: ", events);
@@ -456,8 +443,20 @@
                           )
                           .join("")}
                     </div>
-                </div>
+                    <button id="add-to-crawl" class="absolute">Add to Crawl</button>
+                </div>                
             `);
+
+          //Reset the map view w/ added bar
+          popup.querySelector("#add-to-crawl").addEventListener("click", () => {
+            addBarToCrawl(bar.barid, crawlId);
+            //console.log('click')
+            map.flyTo({
+              center: INITIAL_CENTER,
+              zoom: INITIAL_ZOOM,
+              pitch: 0,
+            });
+          });
 
           mapDiv.append(popup);
 

@@ -827,6 +827,11 @@ video {
   line-height: 2.25rem;
 }
 
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -840,11 +845,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 .font-bold {
@@ -902,7 +902,7 @@ video {
   transition-duration: 200ms;
 }
 
-#reset-view {
+#add-to-crawl {
   position: absolute;
   bottom: 0;
   left: 50%;
