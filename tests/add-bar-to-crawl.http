@@ -1,3 +1,3 @@
 POST http://localhost/addBarToCrawl.php
 
-{ "barId": 21, "crawlId": 22 }
+{ "barId": 6, "crawlId": 38 }
