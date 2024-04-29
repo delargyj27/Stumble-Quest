@@ -369,7 +369,7 @@
       /** @type {object[]} */
       const events = await getAllEvents();
       /** @type {object[]} */
-      const crawl = await getCrawl(crawlId);
+      let crawl = await getCrawl(crawlId);
 
       console.log("crawl: ", crawl);
       console.log("bars: ", bars);
@@ -448,15 +448,19 @@
             `);
 
           //Reset the map view w/ added bar
-          popup.querySelector("#add-to-crawl").addEventListener("click", () => {
-            addBarToCrawl(bar.barid, crawlId);
-            //console.log('click')
-            map.flyTo({
-              center: INITIAL_CENTER,
-              zoom: INITIAL_ZOOM,
-              pitch: 0,
+          popup
+            .querySelector("#add-to-crawl")
+            .addEventListener("click", async () => {
+              await addBarToCrawl(bar.barid, crawlId);
+              crawl = await getCrawl(crawlId);
+              // TODO: Re-render
+              //console.log('click')
+              map.flyTo({
+                center: INITIAL_CENTER,
+                zoom: INITIAL_ZOOM,
+                pitch: 0,
+              });
             });
-          });
 
           mapDiv.append(popup);
 
