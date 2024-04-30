@@ -1,0 +1,2 @@
+- Add error handling in fetch functions
+  - addToCrawl

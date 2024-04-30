@@ -16,7 +16,8 @@ try {
     //Select all columns from crawlbars table
     $sql = "
         SELECT * FROM
-            crawlbars 
+            crawlbars INNER JOIN bars 
+            ON( crawlbars.barid = bars.barid )
         WHERE crawl_id = ?
     ";
     $stmt = $pdo->prepare($sql);
