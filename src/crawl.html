@@ -414,6 +414,19 @@
             <p class="text-sm text-gray-500 dark:text-gray-400">
                 ${crawl.description}
             </p>
+
+            <div>
+                ${crawlBars
+                  .map(
+                    (crawlBar) => `
+                        <div>
+                            <p>${crawlBar.barname}</p>
+                            <p>${crawlBar.baraddress}</p>
+                        </div>                            `
+                  )
+                  .join("")}
+            </div>
+
           </div>
         `);
 
@@ -442,25 +455,10 @@
           if (bar == selectedBar) {
             const popup = html(`
                 <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
-                    <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${
-                      bar.barname
-                    }</h1>
+                    <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
     
-                    <p class="text-sm text-gray-500 dark:text-gray-400">${
-                      bar.baraddress
-                    }, Farmingdale, NY</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
 
-                    <div>
-                        ${events
-                          .map(
-                            (event) => `
-                                <div>
-                                    ${event.eventname}
-
-                                </div>                            `
-                          )
-                          .join("")}
-                    </div>
                     <button id="add-to-crawl" class="absolute">Add to Crawl</button>
                 </div>                
             `);
