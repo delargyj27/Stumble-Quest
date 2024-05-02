@@ -226,80 +226,86 @@
       mapboxgl.accessToken =
         "pk.eyJ1IjoiamttYXBkZXYiLCJhIjoiY2xzZTJqNGhvMTdmajJqcGR0M2VuamhteiJ9.nvLYDDQBhv_sFGNIwW2oTg";
 
-      var map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/streets-v11",
-        center: INITIAL_CENTER,
-        zoom: INITIAL_ZOOM,
-      });
+      let map = null;
 
-      map.on("load", function () {
-        map.resize();
-        //place object we will add our events to
-        map.addSource("places", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [], // data of events
-          },
-        });
-        //add place object to map
-        map.addLayer({
-          id: "places",
-          type: "symbol",
-          source: "places",
-          layout: {
-            "icon-image": "{icon}",
-            "icon-allow-overlap": true,
-          },
+      renderMap();
+
+      function renderMap() {
+        map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/streets-v11",
+          center: INITIAL_CENTER,
+          zoom: INITIAL_ZOOM,
         });
 
-        //Handle popups
-        map.on("click", "places", (e) => {
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const description = e.features[0].properties.description;
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-          new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(description)
-            .addTo(map);
+        map.on("load", function () {
+          map.resize();
+          //place object we will add our events to
+          map.addSource("places", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [], // data of events
+            },
+          });
+          //add place object to map
+          map.addLayer({
+            id: "places",
+            type: "symbol",
+            source: "places",
+            layout: {
+              "icon-image": "{icon}",
+              "icon-allow-overlap": true,
+            },
+          });
+
+          //Handle popups
+          map.on("click", "places", (e) => {
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const description = e.features[0].properties.description;
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            new mapboxgl.Popup()
+              .setLngLat(coordinates)
+              .setHTML(description)
+              .addTo(map);
+          });
+
+          //Handle pointer styles
+          map.on("mouseenter", "places", () => {
+            map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", "places", () => {
+            map.getCanvas().style.cursor = "";
+          });
+
+          //get our data from php function
+          //getAllEvents();
         });
 
-        //Handle pointer styles
-        map.on("mouseenter", "places", () => {
-          map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", "places", () => {
-          map.getCanvas().style.cursor = "";
-        });
-
-        //get our data from php function
-        //getAllEvents();
-      });
-
-      //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
-      //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the
-      //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in
-      //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^. ????
-      // function getAllEvents() {
-      //     $.ajax({
-      //         url: "./api/getAllEvents.php",
-      //         contentType: "application/json",
-      //         dataType: "json",
-      //         success: function (eventData) {
-      //             console.log(eventData)
-      //             map.getSource('places').setData({
-      //                 'type': 'FeatureCollection',
-      //                 'features': eventData
-      //             });
-      //         },
-      //         error: function (e) {
-      //             console.log(e);
-      //         }
-      //     });
-      // }
+        //using jquery - an asynchronous request to an endpoint on your server (external server, lambda function) -
+        //either way, calls a backend file (./api/getAllEvents.php) to parse events from a JSON file, and add the
+        //event data ( map.getSource('places').setData({...});) to the currently empty 'features': [] array in
+        //the  map.addSource(...); method above, & then empty the eventData into our actual map array^^^. ????
+        // function getAllEvents() {
+        //     $.ajax({
+        //         url: "./api/getAllEvents.php",
+        //         contentType: "application/json",
+        //         dataType: "json",
+        //         success: function (eventData) {
+        //             console.log(eventData)
+        //             map.getSource('places').setData({
+        //                 'type': 'FeatureCollection',
+        //                 'features': eventData
+        //             });
+        //         },
+        //         error: function (e) {
+        //             console.log(e);
+        //         }
+        //     });
+        // }
+      }
 
       const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -357,7 +363,7 @@
       import { html } from "./utils/html.js";
       import { getAllEvents } from "./api/events.js";
       import { getCrawl } from "./api/crawls.js";
-      import { addBarToCrawl } from "./api/crawls.js";
+      import { addBarToCrawl, clearCrawlBars } from "./api/crawls.js";
 
       const barButtonsDiv = document.querySelector("#bar-buttons");
       const mapOverlayDiv = document.querySelector("#map-overlay");
@@ -378,6 +384,8 @@
 
       let selectedBar = null;
 
+      let markers = [];
+
       render();
 
       console.log("crawl: ", crawl);
@@ -388,6 +396,11 @@
         // Clear the UI
         barButtonsDiv.innerHTML = "";
         mapOverlayDiv.innerHTML = "";
+        // Clear the beer steins
+        for (const marker of markers) {
+          marker.remove();
+          markers = [];
+        }
 
         if (selectedBar == null) {
           map.flyTo({
@@ -441,12 +454,14 @@
           el.style.height = `50px`;
           el.style.backgroundSize = "100%";
 
-          new mapboxgl.Marker(el)
+          const marker = new mapboxgl.Marker(el)
             .setLngLat([
               crawlBar.location_longitude,
               crawlBar.location_latitude,
             ])
             .addTo(map);
+
+          markers.push(marker);
         }
 
         // Render everything about the bars...
@@ -456,11 +471,11 @@
             const popup = html(`
                 <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
                     <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
-    
+
                     <p class="text-sm text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
 
                     <button id="add-to-crawl" class="absolute">Add to Crawl</button>
-                </div>                
+                </div>
             `);
 
             //Reset the map view w/ added bar
@@ -499,19 +514,21 @@
             el.style.height = `50px`;
             el.style.backgroundSize = "100%";
 
-            new mapboxgl.Marker(el)
+            const marker = new mapboxgl.Marker(el)
               .setLngLat([bar.location_longitude, bar.location_latitude])
               //.setPopup(popup) // sets a popup on this marker
               .addTo(map);
+
+            markers.push(marker);
           }
 
           const button = html(`
             <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
                 <img class="object-cover w-8 h-8 rounded-full" src="./dist/pint.png" alt="">
-            
+
                 <div class="text-left rtl:text-right">
                     <h1 class="text-sm font-medium text-gray-700 capitalize dark:text-white">${bar.barname}</h1>
-    
+
                     <p class="text-xs text-gray-500 dark:text-gray-400">${bar.baraddress}, Farmingdale, NY</p>
                 </div>
             </button>
@@ -533,6 +550,23 @@
 
           barButtonsDiv.append(button);
         }
+
+        const clearButton = html(`
+          <button class="z-10 relative">Clear</button>
+        `);
+
+        clearButton.addEventListener("click", async () => {
+          await clearCrawlBars(crawlId);
+
+          // TODO: Read the NEW crawl bars data and re-render
+          const data = await getCrawl(crawlId);
+          crawl = data.crawl;
+          crawlBars = data.crawlBars;
+
+          render();
+        });
+
+        mapOverlayDiv.append(clearButton);
       }
     </script>
   </body>

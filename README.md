@@ -12,6 +12,9 @@
 - Error: `cannot take exclusive lock for project "stumble-quest"`
   Solution: https://github.com/docker/compose/issues/11069#issuecomment-1769694535
 
+  1. Open `%LOCALAPPDATA%/docker-compose/` in file explorer
+  2. Delete `stumble-quest.pid`
+
 ### Run the app (Locally)
 
 1. Run

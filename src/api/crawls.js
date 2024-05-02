@@ -27,3 +27,18 @@ export async function addBarToCrawl(barId, crawlId) {
 
   return await response.json();
 }
+
+export async function clearCrawlBars(crawlId) {
+  const response = await fetch(`./clearCrawlBars.php`, {
+    method: "POST",
+    body: JSON.stringify({ crawlId: crawlId }),
+    credentials: "include",
+  });
+
+  // If error status code...
+  if (!response.ok) {
+    throw new Error("Something went wrong.");
+  }
+
+  return await response.json();
+}
