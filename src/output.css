@@ -596,6 +596,14 @@ video {
   position: relative;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
 .right-20 {
   right: 5rem;
 }
@@ -912,6 +920,16 @@ video {
   padding: 10px;
 }
 
+#clear-crawls,
+#return-button {
+  background: orange;
+  color: white;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgrey
+}
+
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -968,4 +986,3 @@ video {
     background-color: rgb(31 41 55 / var(--tw-bg-opacity));
   }
 }
-

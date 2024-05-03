@@ -410,6 +410,16 @@
           });
         }
 
+        const startDatetime = new Date(
+          Date.parse(
+            `${crawl.date}T${crawl.start_time}-0${
+              new Date().getTimezoneOffset() / 60
+            }:00`
+          )
+        );
+
+        console.log("startDatetime: ", startDatetime);
+
         const popup = html(`
           <div class="z-10 absolute right-20 mr-40 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white p-10">
             <h1 class="text-base font-semibold text-gray-700 capitalize dark:text-white">
@@ -421,7 +431,7 @@
             </p>
 
             <p class="text-sm text-gray-500 dark:text-gray-400">
-                ${crawl.start_time}
+                ${startDatetime.toLocaleTimeString()}
             </p>
 
             <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -551,8 +561,12 @@
           barButtonsDiv.append(button);
         }
 
+        const buttonWrapper = html(`
+          <div class="absolute bottom-0 left-1/2 z-10"></div>
+        `);
+
         const clearButton = html(`
-          <button class="z-10 relative">Clear</button>
+          <button id="clear-crawls">Clear Crawls</button>
         `);
 
         clearButton.addEventListener("click", async () => {
@@ -566,7 +580,19 @@
           render();
         });
 
-        mapOverlayDiv.append(clearButton);
+        buttonWrapper.append(clearButton);
+
+        const returnToCrawlPage = html(`
+          <button id="return-button">Review on Crawl Page</button>
+        `);
+
+        returnToCrawlPage.addEventListener("click", async () => {
+          location.href = "./crawls.php";
+        });
+
+        buttonWrapper.append(returnToCrawlPage);
+
+        mapOverlayDiv.append(buttonWrapper);
       }
     </script>
   </body>
