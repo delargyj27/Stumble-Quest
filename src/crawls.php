@@ -547,7 +547,7 @@ if (isset($_POST['edit-crawl'])) {
 
     $edit_visibility = isset($_POST["edit_visibility{$edit_crawl_id}"]) ? $_POST["edit_visibility{$edit_crawl_id}"] : null;
 
-    $edit_status = isset($_POST["status{$edit_crawl_id}"]) ? $_POST["status{$edit_crawl_id}"] : null;
+    $edit_status = isset($_POST["edit_status{$edit_crawl_id}"]) ? $_POST["edit_status{$edit_crawl_id}"] : null;
 
 
 

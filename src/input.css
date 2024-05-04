@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 #add-to-crawl {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 1;
     background: orange;
     color: white;
     padding: 10px;
