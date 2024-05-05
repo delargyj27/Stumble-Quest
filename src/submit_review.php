@@ -4,13 +4,22 @@ ini_set('display_errors', 1);
 
 session_start();
 
-$servername = "sql105.infinityfree.com";
-$username = "if0_36069118";
-$password = "44WqSXc31wzj7";
-$dbname = "if0_36069118_dbsquest";
+if ($_SERVER["REMOTE_ADDR"] == "172.18.0.1") {
+    $database = "if0_36069118_dbsquest";
+    // This is the host name of the MariaDB container when running locally
+    $servername = "db";
+    $db_username = 'jkmapdev1';
+    $db_password = 'proximity';
+} else {
+    // Database connection details
+    $servername = "sql105.infinityfree.com";
+    $db_username = "if0_36069118";
+    $db_password = "44WqSXc31wzj7";
+    $database = "if0_36069118_dbsquest";
+}
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
 // Check connection
 if ($conn->connect_error) {
@@ -57,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fetch data for manager if GET data is received
     if (isset($_GET['managerid'])) {
         $manager_id = $_GET['managerid'];
-        
+
         // Prepare statement to fetch bar data for manager
         $stmt = $conn->prepare("SELECT barname, menuurl, description, baraddress, outdoor_seating, wheelchair_accessible, counter, food, service, vibe, drinks, cleanliness, safety, barid FROM bars WHERE managerid = ?");
         if ($stmt === false) {
@@ -71,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Bind result variables
             $stmt->bind_result($name, $menu, $description, $address, $outdoor_seating, $wheelchair_accessible, $counter, $food, $service, $vibe, $drinks, $cleanliness, $safety, $barid);
-            
+
             // Fetch data
             $stmt->fetch();
 
@@ -116,5 +125,3 @@ function calculateOverallRating($food, $services, $drinks, $vibe, $cleanliness):
 
 // Close connection
 $conn->close();
-?>
-
