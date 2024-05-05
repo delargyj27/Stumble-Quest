@@ -85,14 +85,12 @@ $conn->close();
     <div class="toggle">
         <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
     </div>
-    <ul class="menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="map.html">Map</a></li>
-        <li><a href="bar.html">Bars</a></li>
-        <li><a href="crawls.php">Crawl</a></li>
-        <li><a href="crawls.html">Calander</a></li>
-        <li><a href="aboutUs.html">FAQ</a></li>
-    </ul>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="bars.html">Bars</a></li>
+            <li><a href="crawls.php">Crawl</a></li>
+            <li><a href="aboutUs.html">FAQ</a></li>
+        </ul>
 </nav>
 
 <!-- Main content container -->

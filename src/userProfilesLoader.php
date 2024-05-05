@@ -97,7 +97,6 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,22 +106,17 @@ $conn->close();
     <style>
         .main-content {
             display: flex;
-            justify-content: space-between;
-            /* To evenly distribute the containers */
-            margin: 0 auto;
-            /* Center the content horizontally */
-            max-width: 1200px;
-            /* Limit maximum width */
+            justify-content: space-between; /* To evenly distribute the containers */
+            margin: 0 auto; /* Center the content horizontally */
+            max-width: 1200px; /* Limit maximum width */
             margin-top: 40px;
         }
 
         .container {
-            width: calc(33.33% - 10px);
-            /* Adjust width to fit your layout */
+            width: calc(33.33% - 10px); /* Adjust width to fit your layout */
             background-color: #fff;
             box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            /* Added padding */
+            padding: 10px 20px; /* Added padding */
         }
 
         .container h1 {
@@ -184,12 +178,9 @@ $conn->close();
             background-color: aquamarine;
             transition: background-color 0.2s;
         }
-
         .container .no-invites {
-            margin-top: 20px;
-            /* Adjust spacing */
-            text-align: center;
-            /* Center the message */
+            margin-top: 20px; /* Adjust spacing */
+            text-align: center; /* Center the message */
         }
 
 
@@ -199,12 +190,10 @@ $conn->close();
 
 
         .crawl-container {
-            width: calc(33.33% - 10px);
-            /* Adjust width to fit your layout */
+            width: calc(33.33% - 10px); /* Adjust width to fit your layout */
             background-color: #fff;
             box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            /* Added padding */
+            padding: 10px 20px; /* Added padding */
         }
 
         .crawl-container h1 {
@@ -266,16 +255,46 @@ $conn->close();
             background-color: aquamarine;
             transition: background-color 0.2s;
         }
-
         .crawl-container .no-invites {
-            margin-top: 20px;
-            /* Adjust spacing */
-            text-align: center;
-            /* Center the message */
+            margin-top: 20px; /* Adjust spacing */
+            text-align: center; /* Center the message */
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
-
 <body>
     <div class="top-bar">
         <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
@@ -293,12 +312,10 @@ $conn->close();
             <a href="#"><ion-icon name="menu-outline"></ion-icon></a>
         </div>
         <ul class="menu">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="map.php">Map</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="bars.html">Bars</a></li>
             <li><a href="crawls.php">Crawl</a></li>
-            <li><a href="events.php">Calendar</a></li>
-            <li><a href="aboutUs.php">FAQ</a></li>
+            <li><a href="aboutUs.html">FAQ</a></li>
         </ul>
     </nav>
 
@@ -319,7 +336,7 @@ $conn->close();
                     <input type="submit" name="update-button" value="Update">
                 </div>
             </form>
-
+            
             <!-- Radio buttons to change container background color -->
             <div>
                 <p>Choose Background Color:</p>
@@ -340,25 +357,25 @@ $conn->close();
         <!-- Left Container: Crawl Invites -->
         <div class="crawl-container" id="crawlInvitesContainer">
             <h1>Crawl Invites</h1>
-            <?php if (!empty($invites)) : ?>
+            <?php if (!empty($invites)): ?>
                 <ul>
-                    <?php foreach ($invites as $invite) : ?>
+                    <?php foreach ($invites as $invite): ?>
                         <li>
                             <span>Invited by User ID: <?php echo $invite['inviteId']; ?></span><br>
                             <span>Sent at: <?php echo $invite['sentAt']; ?></span><br>
-                            <?php if ($invite['status'] === 'pending') : ?>
+                            <?php if ($invite['status'] === 'pending'): ?>
                                 <form method="post" action="">
                                     <input type="hidden" name="invite_id" value="<?php echo $invite['inviteId']; ?>">
                                     <button type="submit" name="action" value="accepted">Accept</button>
                                     <button type="submit" name="action" value="rejected">Reject</button>
                                 </form>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <span>Status: <?php echo $invite['status']; ?></span>
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
-            <?php else : ?>
+            <?php else: ?>
                 <div class="no-invites">
                     <p>No pending crawl invites</p>
                 </div>
@@ -384,5 +401,4 @@ $conn->close();
         });
     </script>
 </body>
-
 </html>

@@ -84,8 +84,7 @@ $checkRegularUserQuery->close();
 $conn->close();
 
 // Function to redirect to a specific page immediately
-function redirect($url)
-{
+function redirect($url) {
     header("Location: $url");
     exit();
 }
@@ -93,7 +92,6 @@ function redirect($url)
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,7 +99,6 @@ function redirect($url)
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </head>
-
 <body>
     <div class="top-bar">
         <a href="tel:(631)-000-0000"><ion-icon name="call-outline"></ion-icon> <span>Click To Call Our Team Now!</span></a>
@@ -135,7 +132,7 @@ function redirect($url)
             <input type="text" name="username" placeholder="Username" id="username" required>
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Password" id="password" required>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login"> 
         </form>
     </div>
 
@@ -147,7 +144,6 @@ function redirect($url)
             menu.classList.toggle('active');
         });
     </script>
-
+    
 </body>
-
 </html>
